@@ -1,0 +1,6 @@
+@Backgammon_HostAddress = http://localhost:8080
+
+GET {{Backgammon_HostAddress}}
+Accept: application/json
+
+###

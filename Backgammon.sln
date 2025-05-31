@@ -1,8 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgammon", "Backgammon\Backgammon.csproj", "{6821183E-AD56-4B40-904A-283973877C05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgammon.WebAPI", "Backgammon.WebAPI\Backgammon.WebAPI.csproj", "{6821183E-AD56-4B40-904A-283973877C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgammon.Core", "Backgammon.Core\Backgammon.Core.csproj", "{2430E1C4-605D-455F-B48E-3BEA236C3825}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgammon.GameCore", "Backgammon.GameCore\Backgammon.GameCore.csproj", "{2430E1C4-605D-455F-B48E-3BEA236C3825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgammon.Infrastructure", "Backgammon.Infrastructure\Backgammon.Infrastructure.csproj", "{A5D3868A-D314-46A2-92BD-16C194DC126D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgammon.Infrastructure.Tests", "Backgammon.Infrastructure.Tests\Backgammon.Infrastructure.Tests.csproj", "{31D04842-C191-42E2-A582-034538FFD954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,13 @@ Global
 		{2430E1C4-605D-455F-B48E-3BEA236C3825}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2430E1C4-605D-455F-B48E-3BEA236C3825}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2430E1C4-605D-455F-B48E-3BEA236C3825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D3868A-D314-46A2-92BD-16C194DC126D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D3868A-D314-46A2-92BD-16C194DC126D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D3868A-D314-46A2-92BD-16C194DC126D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D3868A-D314-46A2-92BD-16C194DC126D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D04842-C191-42E2-A582-034538FFD954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D04842-C191-42E2-A582-034538FFD954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D04842-C191-42E2-A582-034538FFD954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D04842-C191-42E2-A582-034538FFD954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

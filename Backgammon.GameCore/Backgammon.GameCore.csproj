@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <OutputType>Library</OutputType>
+        <AssemblyName>Backgammon.GameCore</AssemblyName>
+        <RootNamespace>Backgammon.GameCore</RootNamespace>
+    </PropertyGroup>
+
+</Project>

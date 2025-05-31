@@ -19,14 +19,13 @@
     <ItemGroup>
       <Folder Include="Controllers\" />
       <Folder Include="Data\Repositories\" />
-      <Folder Include="Models\Dtos\" />
       <Folder Include="Models\Entities\" />
       <Folder Include="Security\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Backgammon.Core\Backgammon.Core.csproj" />
+      <ProjectReference Include="..\Backgammon.GameCore\Backgammon.GameCore.csproj" />
     </ItemGroup>
 
 </Project>
