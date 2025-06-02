@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Backgammon.Infrastructure.Entities;
+namespace Backgammon.Core.Entities;
 
 public class Rating
 {

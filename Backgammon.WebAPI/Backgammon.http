@@ -4,3 +4,17 @@ GET {{Backgammon_HostAddress}}
 Accept: application/json
 
 ###
+
+POST {{Backgammon_HostAddress}}/api/comment/backgammon
+Content-Type: application/json
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+###
+
+GET {{Backgammon_HostAddress}}/api/comment/backgammon

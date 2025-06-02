@@ -1,13 +1,13 @@
+using Backgammon.Core.Entities;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Entities;
 using Backgammon.Infrastructure.Exceptions;
-using Backgammon.Infrastructure.Services;
+using Backgammon.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backgammon.Infrastructure.Tests.Services;
+namespace Backgammon.Tests.Infrastructure;
 
 [TestFixture]
-public class CommentServiceEfTest
+public class CommentRepositoryTest
 {
     private GameDbContext GetDbContext()
     {
@@ -22,7 +22,7 @@ public class CommentServiceEfTest
     public void AddComment_ShouldBeRetrievable()
     {
         var context = GetDbContext();
-        var service = new CommentServiceEf(context);
+        var service = new CommentRepository(context);
 
         var user = new User
         {
@@ -53,7 +53,7 @@ public class CommentServiceEfTest
     public void GetComments_EmptyByDefault()
     {
         var context = GetDbContext();
-        var service = new CommentServiceEf(context);
+        var service = new CommentRepository(context);
 
         var comments = service.GetComments("Backgammon");
 
@@ -64,7 +64,7 @@ public class CommentServiceEfTest
     public void AddComment_ThrowsOnNullMessage()
     {
         var context = GetDbContext();
-        var service = new CommentServiceEf(context);
+        var service = new CommentRepository(context);
 
         var user = new User
         {
@@ -92,7 +92,7 @@ public class CommentServiceEfTest
     public void RetrievedComments_ShouldBeOrderedByCommentedOn()
     {
         var context = GetDbContext();
-        var service = new CommentServiceEf(context);
+        var service = new CommentRepository(context);
 
         var user = new User
         {
@@ -132,7 +132,7 @@ public class CommentServiceEfTest
     public void Reset_ShouldClearAllComments()
     {
         var context = GetDbContext();
-        var service = new CommentServiceEf(context);
+        var service = new CommentRepository(context);
 
         context.Comments.Add(new Comment
         {

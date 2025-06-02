@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Backgammon.Infrastructure.Entities;
+namespace Backgammon.Core.Entities;
 
 public class User
 {

@@ -1,12 +1,12 @@
+using Backgammon.Core.Entities;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Entities;
 using Backgammon.Infrastructure.Exceptions;
-using Backgammon.Infrastructure.Services;
+using Backgammon.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backgammon.Infrastructure.Tests.Services;
+namespace Backgammon.Tests.Infrastructure;
 
-public class RatingServiceEfTests
+public class RatingRepositoryTest
 {
     private GameDbContext GetDbContext()
     {
@@ -22,7 +22,7 @@ public class RatingServiceEfTests
     public void SetRatingWhenItIsNew_ShouldAddRating()
     {
         var context = GetDbContext();
-        var service = new RatingServiceEf(context);
+        var service = new RatingRepository(context);
         var userId = Guid.NewGuid();
 
         context.Users.Add(new User { Id = userId, Username = "TestUser", PasswordHash = "hash" });
@@ -38,7 +38,7 @@ public class RatingServiceEfTests
     public void SetRatingWhenItExists_ShouldUpdateRating()
     {
         var context = GetDbContext();
-        var service = new RatingServiceEf(context);
+        var service = new RatingRepository(context);
         var userId = Guid.NewGuid();
 
         context.Users.Add(new User { Id = userId, Username = "TestUser", PasswordHash = "hash" });
@@ -55,7 +55,7 @@ public class RatingServiceEfTests
     public void AddingTooHighRating_ShouldThrowException()
     {
         var context = GetDbContext();
-        var service = new RatingServiceEf(context);
+        var service = new RatingRepository(context);
         var userId = Guid.NewGuid();
 
         context.Users.Add(new User { Id = userId, Username = "TestUser", PasswordHash = "hash" });
@@ -74,7 +74,7 @@ public class RatingServiceEfTests
     public void GetAverageRating_ShouldReturnCorrectAverage()
     {
         var context = GetDbContext();
-        var service = new RatingServiceEf(context);
+        var service = new RatingRepository(context);
         var userId1 = Guid.NewGuid();
         var userId2 = Guid.NewGuid();
 
@@ -95,7 +95,7 @@ public class RatingServiceEfTests
     public void GetAverageRating_ShouldReturnCorrectAverage_WhenGameHasNoRatings()
     {
         var context = GetDbContext();
-        var service = new RatingServiceEf(context);
+        var service = new RatingRepository(context);
 
         var averageRating = service.GetAverageRating("backgammon");
         Assert.That(averageRating, Is.EqualTo(0));
@@ -105,7 +105,7 @@ public class RatingServiceEfTests
     public void Reset_ShouldClearAllRatings()
     {
         var context = GetDbContext();
-        var service = new RatingServiceEf(context);
+        var service = new RatingRepository(context);
 
         context.Ratings.Add(new Rating { Game = "backgammon", Value = 5, UserId = Guid.NewGuid(), RatedOn = DateTime.UtcNow });
         context.SaveChanges();

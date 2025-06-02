@@ -11,54 +11,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97848523-f58a-4a17-9fbb-863d56aca905" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Backgammon.GameCore.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Bar.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Board.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Color.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Dice.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/GameState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/IPlaceForCheckers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Move.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/OffBoard.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Player.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.GameCore/Point.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Services/CommentServiceEfTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Services/RatingServiceEfTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Services/ScoreServiceEfTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Data/GameDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/Comment.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/Rating.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/Score.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Exceptions/CommentException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Exceptions/RatingException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Exceptions/ScoreException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/CommentServiceEf.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/ICommentService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/IRatingService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/IScoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/RatingServiceEf.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/ScoreServiceEf.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Models/Dtos/BoardDTO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Program.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.Core/Backgammon.Core.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.Core/Interfaces/IUserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Data/GameDbContextFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Repository/UserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Controllers/Services/CommentController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.WebAPI/DTOs/CommentRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.WebAPI/DTOs/CommentResponseDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Mapping/AutoMapperProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Backgammon/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Backgammon/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Backgammon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Backgammon/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Backgammon.Core.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Backgammon.Core.http" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Board.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Dice.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Player.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Point.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/Properties/launchSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon.Core/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Backgammon.Infrastructure.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Tests/Backgammon.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Services/CommentServiceEfTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Tests/Infrastructure/CommentRepositoryTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Services/RatingServiceEfTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Tests/Infrastructure/RatingRepositoryTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure.Tests/Services/ScoreServiceEfTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Tests/Infrastructure/ScoreRepositoryTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Backgammon.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Backgammon.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Data/GameDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Data/GameDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/Comment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Entities/Comment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/Rating.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Entities/Rating.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/Score.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Entities/Score.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Entities/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Entities/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Exceptions/CommentException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Exceptions/CommentException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Exceptions/RatingException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Exceptions/RatingException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Exceptions/ScoreException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Exceptions/ScoreException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/CommentServiceEf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Repository/CommentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/ICommentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Interfaces/ICommentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/IRatingService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Interfaces/IRatingRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/IScoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Core/Interfaces/IScoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/RatingServiceEf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Repository/RatingRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.Infrastructure/Services/ScoreServiceEf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.Infrastructure/Repository/ScoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.WebAPI.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.http" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.WebAPI/Models/Dtos/BoardDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backgammon.WebAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backgammon.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon/Backgammon.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.WebAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon/Backgammon.http" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backgammon.WebAPI/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backgammon/appsettings.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +55,13 @@
   </component>
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSON File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,6 +78,7 @@
     <setting file="file://$PROJECT_DIR$/Backgammon.GameCore/OffBoard.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Backgammon.GameCore/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Backgammon.GameCore/Point.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Backgammon.Tests/Infrastructure/RatingServiceEfTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Backgammon.WebAPI/Models/Dtos/BoardDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Backgammon.WebAPI/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -102,22 +98,34 @@
     ".NET Launch Settings Profile.Backgammon: https.executor": "Run",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "HTTP Request.Backgammon | #1.executor": "Run",
+    "HTTP Request.Backgammon | #2.executor": "Run",
+    "HTTP Request.Backgammon | #3.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "HotReloadSettingsPage",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Backgammon: http">
     <configuration name="Backgammon | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="Backgammon | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.http" executionIdentifier="#2" index="2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="Backgammon | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/Backgammon.WebAPI/Backgammon.http" executionIdentifier="#3" index="3" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="Backgammon: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
@@ -153,10 +161,14 @@
     <list>
       <item itemvalue=".NET Launch Settings Profile.Backgammon: http" />
       <item itemvalue=".NET Launch Settings Profile.Backgammon: https" />
+      <item itemvalue="HTTP Request.Backgammon | #2" />
+      <item itemvalue="HTTP Request.Backgammon | #3" />
       <item itemvalue="HTTP Request.Backgammon | #1" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.Backgammon | #3" />
+        <item itemvalue="HTTP Request.Backgammon | #2" />
         <item itemvalue="HTTP Request.Backgammon | #1" />
       </list>
     </recent_temporary>
@@ -172,6 +184,8 @@
       <workItem from="1748168387642" duration="20758000" />
       <workItem from="1748349904371" duration="3357000" />
       <workItem from="1748688471133" duration="15891000" />
+      <workItem from="1748856541672" duration="14495000" />
+      <workItem from="1748886432658" duration="4782000" />
     </task>
     <task id="LOCAL-00001" summary="Base project structure">
       <option name="closed" value="true" />
@@ -211,5 +225,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

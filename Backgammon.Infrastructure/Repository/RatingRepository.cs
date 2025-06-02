@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using Backgammon.Core.Entities;
+using Backgammon.Core.Interfaces;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Entities;
 using Backgammon.Infrastructure.Exceptions;
 
-namespace Backgammon.Infrastructure.Services;
+namespace Backgammon.Infrastructure.Repository;
 
-public class RatingServiceEf(GameDbContext db) : IRatingService
+public class RatingRepository(GameDbContext db) : IRatingRepository
 {
     public void SetRating(Rating rating)
     {

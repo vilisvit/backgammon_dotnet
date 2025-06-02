@@ -1,4 +1,4 @@
-using Backgammon.Infrastructure.Entities;
+using Backgammon.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backgammon.Infrastructure.Data;

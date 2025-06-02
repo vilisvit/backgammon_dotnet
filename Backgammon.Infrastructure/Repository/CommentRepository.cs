@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using Backgammon.Core.Entities;
+using Backgammon.Core.Interfaces;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Entities;
 using Backgammon.Infrastructure.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
-namespace Backgammon.Infrastructure.Services;
+namespace Backgammon.Infrastructure.Repository;
 
-public class CommentServiceEf(GameDbContext db) : ICommentService
+public class CommentRepository(GameDbContext db) : ICommentRepository
 {
     public void AddComment(Comment comment)
     {
@@ -27,6 +29,7 @@ public class CommentServiceEf(GameDbContext db) : ICommentService
         try
         {
             return db.Comments
+                .Include(c => c.User)
                 .Where(c => c.Game == game)
                 .OrderByDescending(c => c.CommentedOn)
                 .ToList();

@@ -1,8 +1,7 @@
-using Backgammon.Infrastructure.Entities;
+using Backgammon.Core.Entities;
+namespace Backgammon.Core.Interfaces;
 
-namespace Backgammon.Infrastructure.Services;
-
-public interface IRatingService
+public interface IRatingRepository
 {
     void SetRating(Rating rating);
     int GetAverageRating(string game);

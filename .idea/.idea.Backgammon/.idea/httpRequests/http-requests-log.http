@@ -1,3 +1,340 @@
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T205028.200.json
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T204926.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T202940.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T201224.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T195144.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T174449.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T173925.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T173049.500.txt
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T163539.200.json
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T163538.200.json
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T163536.200.json
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T163438.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T163406.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+<> 2025-06-02T163302.400.json
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T163258.200.json
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T162755.500.txt
+
+###
+
+GET http://localhost:8080
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-06-02T162748.200.txt
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-06-02T162534.500.txt
+
+###
+
+POST http://localhost:8080/api/comment/backgammon
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "player": "janko",
+  "game": "backgammon",
+  "comment": "fgfdsfgdfgdsfg",
+  "commentedOn": "2020-01-01T00:00:00"
+}
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
+GET http://localhost:8080/api/comment/backgammon
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
+GET http://localhost:8080/api/comment
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
+GET http://localhost:8080
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-06-02T162023.200.txt
+
+###
+
 GET http://localhost:8080
 Accept: application/json
 User-Agent: IntelliJ HTTP Client/JetBrains Rider 2025.1.2

@@ -1,11 +1,11 @@
+using Backgammon.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Entities;
-using Backgammon.Infrastructure.Services;
+using Backgammon.Infrastructure.Repository;
 
-namespace Backgammon.Infrastructure.Tests.Services
+namespace Backgammon.Tests.Infrastructure
 {
-    public class ScoreServiceEfTests
+    public class ScoreRepositoryTest
     {
         private GameDbContext GetDbContext()
         {
@@ -21,7 +21,7 @@ namespace Backgammon.Infrastructure.Tests.Services
         public void AddAndGetTopScores_ShouldReturnCorrectScore()
         {
             var context = GetDbContext();
-            var service = new ScoreServiceEf(context);
+            var service = new ScoreRepository(context);
             var userId = Guid.NewGuid();
 
             context.Users.Add(new User { Id = userId, Username = "Test", PasswordHash = "hash" });
@@ -38,7 +38,7 @@ namespace Backgammon.Infrastructure.Tests.Services
         public void Reset_ShouldClearAllScores()
         {
             var context = GetDbContext();
-            var service = new ScoreServiceEf(context);
+            var service = new ScoreRepository(context);
 
             context.Scores.Add(new Score { Game = "game", Points = 50, PlayedOn = DateTime.UtcNow, UserId = Guid.NewGuid() });
             context.SaveChanges();

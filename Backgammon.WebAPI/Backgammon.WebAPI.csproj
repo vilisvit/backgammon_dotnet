@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="14.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
@@ -18,14 +19,11 @@
 
     <ItemGroup>
       <Folder Include="Controllers\" />
-      <Folder Include="Data\Repositories\" />
-      <Folder Include="Models\Entities\" />
-      <Folder Include="Security\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Backgammon.GameCore\Backgammon.GameCore.csproj" />
+      <ProjectReference Include="..\Backgammon.Infrastructure\Backgammon.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

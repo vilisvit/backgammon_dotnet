@@ -1,10 +1,11 @@
+using Backgammon.Core.Entities;
+using Backgammon.Core.Interfaces;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Entities;
 using Backgammon.Infrastructure.Exceptions;
 
-namespace Backgammon.Infrastructure.Services;
+namespace Backgammon.Infrastructure.Repository;
 
-public class ScoreServiceEf(GameDbContext db) : IScoreService
+public class ScoreRepository(GameDbContext db) : IScoreRepository
 {
     public void AddScore(Score score)
     {
