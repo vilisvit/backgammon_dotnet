@@ -27,7 +27,7 @@ public class CommentRepositoryTest
         var user = new User
         {
             Id = Guid.NewGuid(),
-            Username = "tester",
+            UserName = "tester",
             PasswordHash = "secret"
         };
         context.Users.Add(user);
@@ -69,7 +69,7 @@ public class CommentRepositoryTest
         var user = new User
         {
             Id = Guid.NewGuid(),
-            Username = "tester",
+            UserName = "tester",
             PasswordHash = "secret"
         };
         context.Users.Add(user);
@@ -97,7 +97,7 @@ public class CommentRepositoryTest
         var user = new User
         {
             Id = Guid.NewGuid(),
-            Username = "tester",
+            UserName = "tester",
             PasswordHash = "secret"
         };
         context.Users.Add(user);

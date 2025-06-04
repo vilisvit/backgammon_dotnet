@@ -1,6 +1,6 @@
 namespace Backgammon.WebAPI.DTOs;
 
-public class CommentRequest
+public class CommentRequestDto
 {
     public string Comment { get; set; }
 }

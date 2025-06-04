@@ -9,14 +9,19 @@ public class UserRepository(GameDbContext db) : IUserRepository
 {
     
     
-    public User FindByUsername(string username)
+    public User FindById(Guid userId)
     {
-        throw new NotImplementedException();
+        var user = db.Users.FirstOrDefault(u => u.Id == userId);
+        if (user == null)
+        {
+            throw new KeyNotFoundException($"User with ID {userId} not found.");
+        }
+        return user;
     }
 
-    public bool ExistsByUsername(string username)
+    public bool ExistsById(Guid userId)
     {
-        throw new NotImplementedException();
+        return db.Users.Any(u => u.Id == userId);
     }
 
     public void AddUser(User user)

@@ -25,7 +25,7 @@ public class RatingRepositoryTest
         var service = new RatingRepository(context);
         var userId = Guid.NewGuid();
 
-        context.Users.Add(new User { Id = userId, Username = "TestUser", PasswordHash = "hash" });
+        context.Users.Add(new User { Id = userId, UserName = "TestUser", PasswordHash = "hash" });
         context.SaveChanges();
 
         service.SetRating(new Rating { Game = "backgammon", Value = 5, UserId = userId });
@@ -41,7 +41,7 @@ public class RatingRepositoryTest
         var service = new RatingRepository(context);
         var userId = Guid.NewGuid();
 
-        context.Users.Add(new User { Id = userId, Username = "TestUser", PasswordHash = "hash" });
+        context.Users.Add(new User { Id = userId, UserName = "TestUser", PasswordHash = "hash" });
         context.SaveChanges();
 
         service.SetRating(new Rating { Game = "backgammon", Value = 5, UserId = userId });
@@ -58,7 +58,7 @@ public class RatingRepositoryTest
         var service = new RatingRepository(context);
         var userId = Guid.NewGuid();
 
-        context.Users.Add(new User { Id = userId, Username = "TestUser", PasswordHash = "hash" });
+        context.Users.Add(new User { Id = userId, UserName = "TestUser", PasswordHash = "hash" });
         context.SaveChanges();
         
         var rating = service.GetRating("backgammon", userId);
@@ -79,8 +79,8 @@ public class RatingRepositoryTest
         var userId2 = Guid.NewGuid();
 
         context.Users.AddRange(
-            new User { Id = userId1, Username = "User1", PasswordHash = "hash" },
-            new User { Id = userId2, Username = "User2", PasswordHash = "hash" }
+            new User { Id = userId1, UserName = "User1", PasswordHash = "hash" },
+            new User { Id = userId2, UserName = "User2", PasswordHash = "hash" }
         );
         context.SaveChanges();
 

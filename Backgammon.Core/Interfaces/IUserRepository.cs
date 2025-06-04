@@ -4,7 +4,7 @@ namespace Backgammon.Core.Interfaces;
 
 public interface IUserRepository
 {
-    User FindByUsername(string username);
-    bool ExistsByUsername(string username);
+    User FindById(Guid userId);
+    bool ExistsById(Guid userId);
     void AddUser(User user);
 }

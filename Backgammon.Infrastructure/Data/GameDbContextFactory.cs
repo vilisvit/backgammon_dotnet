@@ -8,7 +8,7 @@ public class GameDbContextFactory : IDesignTimeDbContextFactory<GameDbContext>
 {
     public GameDbContext CreateDbContext(string[] args)
     {
-        var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../Backgammon.WebAPI"));
+        var basePath = Directory.GetCurrentDirectory();
 
         var configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)

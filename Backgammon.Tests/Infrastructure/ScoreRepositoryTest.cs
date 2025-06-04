@@ -24,7 +24,7 @@ namespace Backgammon.Tests.Infrastructure
             var service = new ScoreRepository(context);
             var userId = Guid.NewGuid();
 
-            context.Users.Add(new User { Id = userId, Username = "Test", PasswordHash = "hash" });
+            context.Users.Add(new User { Id = userId, UserName = "Test", PasswordHash = "hash" });
             context.SaveChanges();
 
             service.AddScore(new Score { Game = "backgammon", Points = 120, PlayedOn = DateTime.UtcNow, UserId = userId });

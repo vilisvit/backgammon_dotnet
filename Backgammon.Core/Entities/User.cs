@@ -1,19 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Backgammon.Core.Entities;
 
-public class User
+using Microsoft.AspNetCore.Identity;
+
+public class User : IdentityUser<Guid>
 {
-    [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
-
-    [Required]
-    [MaxLength(50)]
-    public string Username { get; set; } = null!;
-
-    [Required]
-    public string PasswordHash { get; set; } = null!;
-
-    // Optional metadata
     public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
 }
