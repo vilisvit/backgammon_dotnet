@@ -1,1 +1,0 @@
-Backgammon.WebAPI API is running
