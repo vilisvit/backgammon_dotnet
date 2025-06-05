@@ -7,7 +7,20 @@ namespace Backgammon.Infrastructure.Repository;
 
 public class UserRepository(GameDbContext db) : IUserRepository
 {
+    public User FindByUserName(string userName)
+    {
+        var user = db.Users.FirstOrDefault(u => u.UserName == userName);
+        if (user == null)
+        {
+            throw new KeyNotFoundException($"User with username {userName} not found.");
+        }
+        return user;
+    }
     
+    public bool ExistsByUserName(string userName)
+    {
+        return db.Users.Any(u => u.UserName == userName);
+    }
     
     public User FindById(Guid userId)
     {

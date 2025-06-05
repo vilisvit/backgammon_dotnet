@@ -1,9 +1,9 @@
 namespace Backgammon.WebAPI.DTOs;
 
-public class CommentResponseDto
+public class ScoreResponseDto
 {
-    public string Comment { get; init; } = null!; // TODO: Rename to Content after frontend update
-    public DateTime CommentedOn { get; init; }
+    public int Points { get; init; }
+    public DateTime PlayedOn { get; init; }
     public string Game { get; init; } = null!;
 
     // public int UserId { get; set; } // TODO: Uncomment after frontend update

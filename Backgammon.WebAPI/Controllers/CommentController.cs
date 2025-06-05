@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
 using Backgammon.Core.Entities;
-using Backgammon.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Backgammon.Infrastructure.Repository;
 using Backgammon.WebAPI.DTOs;
@@ -35,15 +34,28 @@ public class CommentController(CommentRepository commentRepository, UserReposito
             CommentedOn = DateTime.UtcNow
         };
 
-        commentRepository.AddComment(entity);
+        try
+        {
+            commentRepository.AddComment(entity);
+        }
+        catch (Exception e)
+        {
+            return BadRequest($"Problem adding comment: {e.Message}");
+        }
+
         return StatusCode(201);
     }
 
     [HttpGet("{game}")]
     public ActionResult<List<CommentResponseDto>> GetComments(string game)
     {
-        var comments = commentRepository.GetComments(game);
-
-        return Ok(comments.Select(comment => mapper.Map<CommentResponseDto>(comment)));
+        try
+        {
+            var comments = commentRepository.GetComments(game);
+            return Ok(comments.Select(mapper.Map<CommentResponseDto>));
+        } catch (Exception e)
+        {
+            return BadRequest($"Problem retrieving comments: {e.Message}");
+        }
     }
 }
