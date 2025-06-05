@@ -71,8 +71,11 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(new AuthorizeFilter(policy));
 });
 
-builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<RatingRepository>();
+builder.Services.AddScoped<ScoreRepository>();
+
 builder.Services.AddScoped<JwtTokenService>();
 
 builder.Services.AddControllers();
