@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Backgammon.Core.Entities;
+using Backgammon.Core.Exceptions;
 using Backgammon.Core.Interfaces;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backgammon.Infrastructure.Repository;

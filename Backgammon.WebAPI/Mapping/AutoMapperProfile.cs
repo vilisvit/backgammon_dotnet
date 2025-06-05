@@ -1,6 +1,8 @@
 using AutoMapper;
 using Backgammon.Core.Entities;
 using Backgammon.WebAPI.DTOs;
+using Backgammon.WebAPI.DTOs.Comment;
+using Backgammon.WebAPI.DTOs.Score;
 
 namespace Backgammon.WebAPI.Mapping;
 

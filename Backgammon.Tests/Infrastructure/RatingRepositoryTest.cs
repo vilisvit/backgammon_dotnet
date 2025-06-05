@@ -1,6 +1,6 @@
 using Backgammon.Core.Entities;
+using Backgammon.Core.Exceptions;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Exceptions;
 using Backgammon.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 

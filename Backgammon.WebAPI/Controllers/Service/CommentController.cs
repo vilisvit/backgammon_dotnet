@@ -4,8 +4,9 @@ using Backgammon.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Backgammon.Infrastructure.Repository;
 using Backgammon.WebAPI.DTOs;
+using Backgammon.WebAPI.DTOs.Comment;
 
-namespace Backgammon.WebAPI.Controllers;
+namespace Backgammon.WebAPI.Controllers.Service;
 
 [ApiController]
 [Route("api/comment")]

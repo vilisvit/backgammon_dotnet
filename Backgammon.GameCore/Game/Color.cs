@@ -1,4 +1,4 @@
-namespace Backgammon.Core;
+namespace Backgammon.GameCore.Game;
 
 public enum Color
 {

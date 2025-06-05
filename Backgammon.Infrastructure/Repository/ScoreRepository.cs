@@ -1,7 +1,7 @@
 using Backgammon.Core.Entities;
+using Backgammon.Core.Exceptions;
 using Backgammon.Core.Interfaces;
 using Backgammon.Infrastructure.Data;
-using Backgammon.Infrastructure.Exceptions;
 
 namespace Backgammon.Infrastructure.Repository;
 
