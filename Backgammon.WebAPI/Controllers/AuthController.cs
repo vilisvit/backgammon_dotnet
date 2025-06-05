@@ -42,6 +42,7 @@ public class AuthController(
         };
 
         var result = await userManager.CreateAsync(user, requestDto.Password);
+        Console.WriteLine(result);
         if (!result.Succeeded)
             return BadRequest(result.Errors);
 
