@@ -422,7 +422,7 @@ public class Board
         }
     }
     
-    private bool IsPossibleStartPoint(IPlaceForCheckers placeForCheckers)
+    public bool IsPossibleStartPoint(IPlaceForCheckers placeForCheckers)
     {
         return _possibleStartPoints.Contains(placeForCheckers);
     }
@@ -436,18 +436,10 @@ public class Board
         GameState = GameState.GameOver;
     }
  
-    public Player? GetWinner()
-    {
-        if (OffBoard.HasAllCheckers(Player1.Color)) 
-        {
-            return Player1;
-        }
-        if (OffBoard.HasAllCheckers(Player2.Color)) 
-        {
-            return Player2;
-        }
-        return null;
-    }
+    public Player? Winner => 
+        OffBoard.HasAllCheckers(Player1.Color) ? Player1 :
+        OffBoard.HasAllCheckers(Player2.Color) ? Player2 :
+        null;
 
     public int GetScore(Player player)
     {
