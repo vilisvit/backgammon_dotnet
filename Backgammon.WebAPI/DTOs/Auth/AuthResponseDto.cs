@@ -3,5 +3,5 @@ namespace Backgammon.WebAPI.DTOs.Auth;
 public class AuthResponseDto(string token)
 {
     public string AccessToken { get; init; } = token;
-    public string TokenType { get; set; } = "Bearer ";
+    public string TokenType { get; init; } = "Bearer ";
 }

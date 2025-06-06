@@ -2,6 +2,6 @@ namespace Backgammon.WebAPI.DTOs.Auth;
 
 public class RegisterRequestDto
 {
-    public string UserName { get; init; } = null!;
-    public string Password { get; init; } = null!;
+    public required string UserName { get; init; }
+    public required string Password { get; init; }
 }

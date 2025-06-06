@@ -431,7 +431,7 @@ public class Board
 
     public IReadOnlyList<int> CurrentMoveDistances => _currentMoveDistances.AsReadOnly();
     
-    public void FinishGame()
+    public void ForceFinishGame()
     {
         GameState = GameState.GameOver;
     }

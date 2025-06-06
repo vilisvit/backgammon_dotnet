@@ -2,5 +2,5 @@ namespace Backgammon.WebAPI.DTOs.Comment;
 
 public class CommentRequestDto
 {
-    public string Comment { get; init; } = null!;
+    public required string Comment { get; init; }
 }

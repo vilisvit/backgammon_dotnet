@@ -10,4 +10,6 @@ public class Player
 
     public Color Color { get; }
     public string Name { get; }
+    
+    // public Guid UserId { get; set; } = Guid.Empty; // TODO: Uncomment after frontend update
 }
