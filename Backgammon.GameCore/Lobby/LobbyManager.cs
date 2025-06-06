@@ -15,9 +15,12 @@ public class LobbyManager
         return session;
     }
     
-    public GameSession? JoinLobby(string sessionId, string username)
+    public GameSession JoinLobby(string sessionId, string username)
     {
-        if (!_lobbies.TryGetValue(sessionId, out var session)) return null;
+        if (!_lobbies.TryGetValue(sessionId, out var session))
+        {
+            throw new LobbyException($"Lobby with session ID {sessionId} does not exist.");
+        }
 
         switch (session.Players?.Count)
         {
@@ -39,31 +42,14 @@ public class LobbyManager
         }
         return session;
     }
-
-    public void LeaveLobby(string sessionId, string username)
+    
+    public GameSession GetLobby(string sessionId)
     {
-        if (!_lobbies.TryGetValue(sessionId, out var session))
+        _lobbies.TryGetValue(sessionId, out var session);
+        if (session == null)
         {
             throw new LobbyException($"Lobby with session ID {sessionId} does not exist.");
         }
-
-        var player = session.Players.FirstOrDefault(p => p.Name == username);
-        if (player == null)
-        {
-            throw new LobbyException($"Player {username} is not in the lobby {sessionId}.");
-        }
-
-        session.RemovePlayer(player);
-        
-        if (session.Players.Count == 0)
-        {
-            _lobbies.Remove(sessionId);
-        }
-    }
-    
-    public GameSession? GetLobby(string sessionId)
-    {
-        _lobbies.TryGetValue(sessionId, out var session);
         return session;
     }
     
@@ -75,8 +61,13 @@ public class LobbyManager
         }
     }
     
-    public GameSession? FindSessionByPlayer(string username)
+    public GameSession FindSessionByPlayer(string username)
     {
-        return _lobbies.Values.FirstOrDefault(session => session.Players.Any(p => p.Name == username));
+        var lobby = _lobbies.Values.FirstOrDefault(session => session.Players.Any(p => p.Name == username));
+        if (lobby == null)
+        {
+            throw new LobbyException($"No lobby found for player {username}.");
+        }
+        return lobby;
     }
 }

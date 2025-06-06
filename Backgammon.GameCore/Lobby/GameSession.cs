@@ -49,15 +49,15 @@ public class GameSession
         }
     }
     
-    public void RemovePlayer(Player player)
+    public void RemovePlayer(string player)
     {
-        if (!Players.Contains(player))
+        if (!Players.Any(p => p.Name.Equals(player)))
         {
             throw new GameSessionException(
-                $"Player {player.Name} is not in the session {SessionId}.");
+                $"Player {player} is not in the session {SessionId}.");
         }
         
-        Players.Remove(player);
+        Players.RemoveAll(p => p.Name.Equals(player));
         
         _board = null;
     }
