@@ -1,0 +1,126 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 18px;
+}
+
+.username-text {
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 20px;
+}
+
+.comments-section {
+    width: 70%;
+    padding-top: 20px;
+}
+
+.comments-section-label {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.selected-game-label {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-transform: capitalize;
+}
+
+.board-frame {
+    width: 845px;
+    height: 700px;
+    border: 2px solid #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.start-game-button {
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+.rating-section {
+    display: table;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.rating-row {
+    display: table-row;
+}
+
+.rating-cell {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.rating-label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.game-container {
+    vertical-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Change from flex-start to center */
+    gap: 30px;
+}
+
+.board-container {
+    width: 845px;
+    height: 700px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1300px) {
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .scoreboard-container {
+        order: 2;
+        margin-top: 20px;
+    }
+
+    .board-container {
+        order: 1;
+    }
+}

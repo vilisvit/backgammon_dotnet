@@ -1,0 +1,29 @@
+.header {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+}
+
+.logout-button {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.header-user-info {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 10px;
+}

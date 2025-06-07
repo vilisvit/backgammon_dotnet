@@ -1,0 +1,222 @@
+import React, {useEffect, useState, useRef} from 'react';
+import {useNavigate} from 'react-router-dom';
+import gsAxios from '../api/http/axiosConfig';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './HomePage.css';
+import Comments from "../components/Comments/Comments";
+import Board from "../components/Board/Board";
+import AddCommentForm from "../components/Comments/AddCommentForm";
+import {fetchComments} from "../api/http/comment.service";
+import Header from "../components/Header/Header";
+import {RatingSelector} from "../components/Rating/RatingSelector";
+import {RatingDisplay} from "../components/Rating/RatingDisplay";
+import {fetchAverageRating, fetchUserRating} from "../api/http/rating.service";
+import Lobby from "../components/Lobby/Lobby";
+import {disconnectSocket, subscribe} from "../api/ws/socket";
+import Scoreboard from "../components/Scoreboard/Scoreboard";
+
+function HomePage() {
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
+    const navigate = useNavigate();
+    const [gameStarted, setGameStarted] = useState(false);
+    const selectedGame = 'backgammon';
+    const [username, setUsername] = useState(null);
+    const [commentsList, setCommentsList] = useState([]);
+    const [averageRating, setAverageRating] = useState(0);
+    const [userRating, setUserRating] = useState(0);
+
+    const [gameSessionId, setGameSessionId] = useState(null);
+    const [gameUpdates, setGameUpdates] = useState(null);
+    const isSubscribedRef = useRef(false);
+    const lobbyUnsubscribeRef = useRef(null);
+
+    useEffect(() => {
+        if (gameSessionId && !isSubscribedRef.current) {
+            isSubscribedRef.current = true;
+
+            const unsubscribeTopic = subscribe(`/topic/game/${gameSessionId}`, (msg) => {
+                try {
+                    if (msg.status === "success") {
+                        setGameUpdates(msg);
+                    } else if (msg.status === 'err_disconnected') {
+                        alert("Player disconnected. Game cancelled.");
+                        setGameStarted(false);
+                    } else {
+                        alert(msg.message);
+                    }
+                } catch (error) {
+                    console.error('Failed to parse game message:', msg);
+                }
+            });
+
+            const unsubscribeQueue = subscribe(`/user/${username}/queue/game`, (msg) => {
+                console.log("Received private message:", msg);
+                try {
+                    if (msg.status === 'error') {
+                        alert(msg.message);
+                    }
+
+                } catch (e) {
+                    console.error('Error parsing private message:', msg.body);
+                }
+            });
+
+            return () => {
+                if (unsubscribeTopic) unsubscribeTopic();
+                if (unsubscribeQueue) unsubscribeQueue();
+                isSubscribedRef.current = false;
+            };
+        }
+    }, [gameSessionId, username]);
+
+    useEffect(() => {
+        if (token) {
+            gsAxios.get('/auth/whoami')
+                .then(response => {
+                    setUsername(response.data.username);
+                })
+                .catch(() => {
+                    setToken(null); // Clear the token
+                    localStorage.removeItem('token'); // Remove token from localStorage
+                    navigate('/login'); // Redirect to login page
+                });
+        }
+    }, [token, navigate]);
+
+    useEffect(() => {
+        if (username) {
+            fetchUserRating(selectedGame, username)
+                .then(response => {
+                    setUserRating(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user rating:', error);
+                });
+        }
+    }, [username]);
+
+    useEffect(() => {
+        if (token) {
+            fetchComments(selectedGame)
+                .then(response => {
+                    setCommentsList(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching comments:', error);
+                });
+            fetchAverageRating(selectedGame)
+                .then(response => {
+                    setAverageRating(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching average rating:', error);
+                });
+        }
+    }, [selectedGame, token]);
+
+    const handleBackToLobby = () => {
+        setGameStarted(false);
+    }
+
+    const handleLogout = () => {
+        if (lobbyUnsubscribeRef.current) {
+            lobbyUnsubscribeRef.current();
+            lobbyUnsubscribeRef.current = null;
+        }
+
+        disconnectSocket();
+
+        setToken(null);
+        localStorage.removeItem('token');
+        navigate('/login'); // Redirect to login page
+    };
+
+    const handleCommentAdded = () => {
+        if (token) {
+            fetchComments(selectedGame)
+                .then(response => {
+                    setCommentsList(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching comments:', error);
+                });
+        }
+    };
+
+    const handleRatingChanged = () => {
+        if (token) {
+            fetchAverageRating(selectedGame)
+                .then(response => {
+                    setAverageRating(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching average rating:', error);
+                });
+            fetchUserRating(selectedGame, username)
+                .then(response => {
+                    setUserRating(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user rating:', error);
+                });
+        }
+    };
+
+    return (
+        <div className="HomePage">
+            <Header username={username} onLogout={handleLogout}/>
+            <h2 className="selected-game-label">{selectedGame}</h2>
+            <div className="game-container">
+                <div className="board-container">
+                    {!gameStarted ? (
+                        <Lobby
+                            token={token}
+                            onGameStart={() => setGameStarted(true)}
+                            onSessionIdUpdate={(id) => setGameSessionId(id)}
+                            unsubscribeRef={lobbyUnsubscribeRef}
+                            initialSessionId={gameSessionId}
+                        />
+                    ) : (
+                        <Board gameSessionId={gameSessionId} gameUpdates={gameUpdates} username={username} onGameFinish={handleBackToLobby}/>
+                    )}
+                </div>
+                <Scoreboard
+                    game={selectedGame}
+                    username={username}
+                />
+            </div>
+            <div className="divider"/>
+            <div className="rating-section">
+                <div className="rating-row">
+                    <div className="rating-cell">
+                        <label className="rating-label">Your Rating:</label>
+                    </div>
+                    <div className="rating-cell">
+                        <RatingSelector currentRating={userRating} game={selectedGame} onRate={handleRatingChanged}/>
+                    </div>
+                </div>
+                <div className="rating-row">
+                    <div className="rating-cell">
+                        <label className="rating-label">Average Rating:</label>
+                    </div>
+                    <div className="rating-cell">
+                        <RatingDisplay rating={averageRating}/>
+                    </div>
+                </div>
+            </div>
+            <div className="comments-section">
+                <h2 className="comments-section-label">Comments</h2>
+                <AddCommentForm
+                    game={selectedGame}
+                    onCommentAdded={handleCommentAdded}
+                />
+                <Comments
+                    game={selectedGame}
+                    commentsList={commentsList}
+                />
+            </div>
+        </div>
+    );
+}
+
+export default HomePage;

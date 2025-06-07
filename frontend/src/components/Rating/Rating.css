@@ -1,0 +1,38 @@
+.rating-container, .rating-display {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.rating-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.star {
+    cursor: pointer;
+    font-size: 26px;
+    color: #ddd;
+    transition: color 0.3s;
+}
+
+.star.filled {
+    color: #FFD700;
+}
+
+.display-star {
+    font-size: 26px;
+    color: #ddd;
+}
+
+.display-star.filled {
+    color: #FFD700;
+}
+
+.rating-number {
+    margin-left: 8px;
+    font-size: 18px;
+    color: #444;
+}
