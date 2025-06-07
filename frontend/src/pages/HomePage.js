@@ -12,8 +12,8 @@ import {RatingSelector} from "../components/Rating/RatingSelector";
 import {RatingDisplay} from "../components/Rating/RatingDisplay";
 import {fetchAverageRating, fetchUserRating} from "../api/http/rating.service";
 import Lobby from "../components/Lobby/Lobby";
-import {disconnectSocket, subscribe} from "../api/ws/socket";
 import Scoreboard from "../components/Scoreboard/Scoreboard";
+import {connectToGame} from "../api/ws/signalr";
 
 function HomePage() {
     const [token, setToken] = useState(localStorage.getItem('token') || null);
@@ -27,47 +27,26 @@ function HomePage() {
 
     const [gameSessionId, setGameSessionId] = useState(null);
     const [gameUpdates, setGameUpdates] = useState(null);
-    const isSubscribedRef = useRef(false);
-    const lobbyUnsubscribeRef = useRef(null);
+    const connectedToGameRef = useRef(false);
 
     useEffect(() => {
-        if (gameSessionId && !isSubscribedRef.current) {
-            isSubscribedRef.current = true;
+        if (gameSessionId && token && !connectedToGameRef.current) {
+            connectedToGameRef.current = true;
 
-            const unsubscribeTopic = subscribe(`/topic/game/${gameSessionId}`, (msg) => {
-                try {
-                    if (msg.status === "success") {
-                        setGameUpdates(msg);
-                    } else if (msg.status === 'err_disconnected') {
-                        alert("Player disconnected. Game cancelled.");
-                        setGameStarted(false);
-                    } else {
-                        alert(msg.message);
-                    }
-                } catch (error) {
-                    console.error('Failed to parse game message:', msg);
-                }
-            });
-
-            const unsubscribeQueue = subscribe(`/user/${username}/queue/game`, (msg) => {
-                console.log("Received private message:", msg);
-                try {
-                    if (msg.status === 'error') {
-                        alert(msg.message);
-                    }
-
-                } catch (e) {
-                    console.error('Error parsing private message:', msg.body);
-                }
-            });
-
-            return () => {
-                if (unsubscribeTopic) unsubscribeTopic();
-                if (unsubscribeQueue) unsubscribeQueue();
-                isSubscribedRef.current = false;
-            };
+            connectToGame(token, gameSessionId,
+                (boardUpdate) => {
+                    setGameUpdates(boardUpdate);
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    alert("Game canceled.");
+                    setGameStarted(false);
+                    connectedToGameRef.current = false;
+                });
         }
-    }, [gameSessionId, username]);
+    }, [gameSessionId, token]);
 
     useEffect(() => {
         if (token) {
@@ -119,13 +98,6 @@ function HomePage() {
     }
 
     const handleLogout = () => {
-        if (lobbyUnsubscribeRef.current) {
-            lobbyUnsubscribeRef.current();
-            lobbyUnsubscribeRef.current = null;
-        }
-
-        disconnectSocket();
-
         setToken(null);
         localStorage.removeItem('token');
         navigate('/login'); // Redirect to login page
@@ -173,8 +145,6 @@ function HomePage() {
                             token={token}
                             onGameStart={() => setGameStarted(true)}
                             onSessionIdUpdate={(id) => setGameSessionId(id)}
-                            unsubscribeRef={lobbyUnsubscribeRef}
-                            initialSessionId={gameSessionId}
                         />
                     ) : (
                         <Board gameSessionId={gameSessionId} gameUpdates={gameUpdates} username={username} onGameFinish={handleBackToLobby}/>

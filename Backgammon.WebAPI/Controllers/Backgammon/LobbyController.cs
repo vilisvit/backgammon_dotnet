@@ -1,21 +1,30 @@
 using System.Security.Claims;
+using AutoMapper;
 using Backgammon.Core.Entities;
 using Backgammon.GameCore.Lobby;
 using Backgammon.Infrastructure.Repository;
+using Backgammon.WebAPI.Dtos.Board;
 using Backgammon.WebAPI.Dtos.Lobby;
+using Backgammon.WebAPI.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Backgammon.WebAPI.Controllers.Backgammon;
 
 [ApiController]
 [Route("api/lobby")]
-public class LobbyController(LobbyManager lobbyManager, UserRepository userRepository) : ControllerBase
+public class LobbyController(
+    LobbyManager lobbyManager,
+    UserRepository userRepository,
+    IHubContext<BackgammonHub> hubContext,
+    IMapper mapper
+) : ControllerBase
 {
     [HttpPost]
     public IActionResult CreateLobby()
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult okResult)
+        if (userResult is not OkObjectResult)
             return userResult;
 
         var session = lobbyManager.CreateLobby(user!.Id);
@@ -27,7 +36,7 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     public IActionResult JoinLobby(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult okResult)
+        if (userResult is not OkObjectResult)
             return userResult;
 
         try
@@ -43,10 +52,10 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     }
 
     [HttpPost("start/{sessionId}")]
-    public IActionResult StartGame(string sessionId)
+    public async Task<IActionResult> StartGame(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult okResult)
+        if (userResult is not OkObjectResult)
             return userResult;
 
         try
@@ -61,8 +70,14 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
             lobby.StartGame();
             SendLobbyUpdate(lobby);
 
-            throw new NotImplementedException("Should send websocket message here.");
-            // return Ok(BuildLobbyDto(lobby));
+            await hubContext.Clients.Group(sessionId).SendAsync("GameUpdated", new
+            {
+                status = "success",
+                message = "Game started.",
+                board = mapper.Map<BoardDto>(lobby.Board),
+            });
+
+            return Ok();
         }
         catch (LobbyException e)
         {
@@ -71,10 +86,10 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     }
 
     [HttpPost("leave/{sessionId}")]
-    public IActionResult LeaveLobby(string sessionId)
+    public async Task<IActionResult> LeaveLobby(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult okResult)
+        if (userResult is not OkObjectResult)
             return userResult;
 
         try
@@ -91,7 +106,14 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
             if (session.IsGameStarted)
             {
                 session.CancelGame();
-                throw new NotImplementedException("Should send websocket message here.");
+
+                await hubContext.Clients.Group(sessionId).SendAsync("GameCanceled", new
+                {
+                    status = "err_disconnected",
+                    message = "A player disconnected. Game has been canceled."
+                });
+
+                return Ok("Game canceled.");
             }
 
             SendLobbyUpdate(session);
@@ -107,7 +129,7 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     public IActionResult GetLobby(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult okResult)
+        if (userResult is not OkObjectResult)
             return userResult;
 
         try
@@ -144,10 +166,9 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
         }
     }
 
-
-    private static void SendLobbyUpdate(GameSession session)
+    private void SendLobbyUpdate(GameSession session)
     {
-        throw new NotImplementedException();
+        hubContext.Clients.Group(session.SessionId).SendAsync("LobbyUpdated", BuildLobbyDto(session));
     }
 
     private static LobbyDto BuildLobbyDto(GameSession session)
