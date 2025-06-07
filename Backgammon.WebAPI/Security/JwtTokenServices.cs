@@ -35,41 +35,4 @@ public class JwtTokenService(IConfiguration configuration)
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
-    public Guid? ExtractUserId(string token)
-    {
-        var principal = GetPrincipalFromToken(token);
-        var userIdStr = principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        return Guid.TryParse(userIdStr, out var userId) ? userId : null;
-    }
-
-    public bool ValidateToken(string token)
-    {
-        return GetPrincipalFromToken(token) != null;
-    }
-
-    private ClaimsPrincipal? GetPrincipalFromToken(string token)
-    {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        try
-        {
-            var validationParams = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(_key),
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidIssuer = _issuer,
-                ValidAudience = _audience,
-                ClockSkew = TimeSpan.Zero // optional
-            };
-
-            return tokenHandler.ValidateToken(token, validationParams, out _);
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }

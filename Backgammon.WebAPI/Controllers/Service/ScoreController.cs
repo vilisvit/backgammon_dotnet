@@ -1,7 +1,6 @@
 using AutoMapper;
 using Backgammon.Infrastructure.Repository;
-using Backgammon.WebAPI.DTOs;
-using Backgammon.WebAPI.DTOs.Score;
+using Backgammon.WebAPI.Dtos.Score;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backgammon.WebAPI.Controllers.Service;

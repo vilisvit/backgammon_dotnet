@@ -1,7 +1,8 @@
 using System.Security.Claims;
+using Backgammon.Core.Entities;
 using Backgammon.GameCore.Lobby;
 using Backgammon.Infrastructure.Repository;
-using Backgammon.WebAPI.DTOs.Lobby;
+using Backgammon.WebAPI.Dtos.Lobby;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backgammon.WebAPI.Controllers.Backgammon;
@@ -13,12 +14,11 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     [HttpPost]
     public IActionResult CreateLobby()
     {
-        var usernameResult = GetAuthenticatedUsername();
-        if (usernameResult is not OkObjectResult okResult)
-            return usernameResult;
+        var userResult = GetAuthenticatedUser(out var user);
+        if (userResult is not OkObjectResult okResult)
+            return userResult;
 
-        var username = okResult.Value!.ToString()!;
-        var session = lobbyManager.CreateLobby(username);
+        var session = lobbyManager.CreateLobby(user!.Id);
         SendLobbyUpdate(session);
         return Ok(BuildLobbyDto(session));
     }
@@ -26,14 +26,13 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     [HttpPost("join/{sessionId}")]
     public IActionResult JoinLobby(string sessionId)
     {
-        var usernameResult = GetAuthenticatedUsername();
-        if (usernameResult is not OkObjectResult okResult)
-            return usernameResult;
+        var userResult = GetAuthenticatedUser(out var user);
+        if (userResult is not OkObjectResult okResult)
+            return userResult;
 
-        var username = okResult.Value!.ToString()!;
         try
         {
-            var session = lobbyManager.JoinLobby(sessionId, username);
+            var session = lobbyManager.JoinLobby(sessionId, user!.Id);
             SendLobbyUpdate(session);
             return Ok(BuildLobbyDto(session));
         }
@@ -46,15 +45,14 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     [HttpPost("start/{sessionId}")]
     public IActionResult StartGame(string sessionId)
     {
-        var usernameResult = GetAuthenticatedUsername();
-        if (usernameResult is not OkObjectResult okResult)
-            return usernameResult;
+        var userResult = GetAuthenticatedUser(out var user);
+        if (userResult is not OkObjectResult okResult)
+            return userResult;
 
-        var username = okResult.Value!.ToString()!;
         try
         {
             var lobby = lobbyManager.GetLobby(sessionId);
-            if (!lobby.HasPlayer(username))
+            if (!lobby.HasPlayer(user!.Id))
                 return Forbid("You are not a player in this lobby.");
 
             if (!lobby.IsReadyToStart())
@@ -75,15 +73,14 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     [HttpPost("leave/{sessionId}")]
     public IActionResult LeaveLobby(string sessionId)
     {
-        var usernameResult = GetAuthenticatedUsername();
-        if (usernameResult is not OkObjectResult okResult)
-            return usernameResult;
+        var userResult = GetAuthenticatedUser(out var user);
+        if (userResult is not OkObjectResult okResult)
+            return userResult;
 
-        var username = okResult.Value!.ToString()!;
         try
         {
             var session = lobbyManager.GetLobby(sessionId);
-            session.RemovePlayer(username);
+            session.RemovePlayer(user!.Id);
 
             if (session.Players.Count == 0)
             {
@@ -91,7 +88,7 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
                 return Ok("Lobby removed.");
             }
 
-            if (session.IsGameStarted())
+            if (session.IsGameStarted)
             {
                 session.CancelGame();
                 throw new NotImplementedException("Should send websocket message here.");
@@ -109,15 +106,14 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
     [HttpGet("{sessionId}")]
     public IActionResult GetLobby(string sessionId)
     {
-        var usernameResult = GetAuthenticatedUsername();
-        if (usernameResult is not OkObjectResult okResult)
-            return usernameResult;
+        var userResult = GetAuthenticatedUser(out var user);
+        if (userResult is not OkObjectResult okResult)
+            return userResult;
 
-        var username = okResult.Value!.ToString()!;
         try
         {
             var session = lobbyManager.GetLobby(sessionId);
-            if (!session.HasPlayer(username))
+            if (!session.HasPlayer(user!.Id))
                 return Forbid("You are not a player in this lobby.");
             return Ok(BuildLobbyDto(session));
         }
@@ -129,22 +125,25 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
 
     // =================== HELPERS =====================
 
-    private IActionResult GetAuthenticatedUsername()
+    private IActionResult GetAuthenticatedUser(out User? user)
     {
+        user = null;
+
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
         if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
             return Unauthorized("Invalid or missing user ID in token.");
 
         try
         {
-            var user = userRepository.FindById(userId);
-            return Ok(user.UserName!);
+            user = userRepository.FindById(userId);
+            return Ok();
         }
-        catch (KeyNotFoundException e)
+        catch (KeyNotFoundException)
         {
             return Unauthorized("User not found.");
         }
     }
+
 
     private static void SendLobbyUpdate(GameSession session)
     {
@@ -158,7 +157,7 @@ public class LobbyController(LobbyManager lobbyManager, UserRepository userRepos
             SessionId = session.SessionId,
             Players = session.Players.Select(p => p.Name).ToList(),
             ReadyToStart = session.IsReadyToStart(),
-            Started = session.IsGameStarted()
+            Started = session.IsGameStarted
         };
     }
 }

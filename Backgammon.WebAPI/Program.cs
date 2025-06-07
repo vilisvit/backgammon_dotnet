@@ -2,6 +2,7 @@ using System.Text;
 using Backgammon.Core.Entities;
 using Backgammon.Infrastructure.Data;
 using Backgammon.Infrastructure.Repository;
+using Backgammon.WebAPI.Hubs;
 using Backgammon.WebAPI.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -71,6 +72,8 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(new AuthorizeFilter(policy));
 });
 
+builder.Services.AddSignalR();
+
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<RatingRepository>();
@@ -99,6 +102,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHub<BackgammonHub>("/hubs/backgammon");
 
 app.MapControllers();
 

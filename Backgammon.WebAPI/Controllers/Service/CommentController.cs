@@ -3,8 +3,7 @@ using AutoMapper;
 using Backgammon.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Backgammon.Infrastructure.Repository;
-using Backgammon.WebAPI.DTOs;
-using Backgammon.WebAPI.DTOs.Comment;
+using Backgammon.WebAPI.Dtos.Comment;
 
 namespace Backgammon.WebAPI.Controllers.Service;
 

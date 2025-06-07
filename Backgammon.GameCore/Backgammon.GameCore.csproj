@@ -9,4 +9,8 @@
         <RootNamespace>Backgammon.GameCore</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Backgammon.Infrastructure\Backgammon.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

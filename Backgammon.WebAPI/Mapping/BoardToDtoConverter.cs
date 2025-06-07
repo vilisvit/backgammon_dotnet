@@ -1,6 +1,6 @@
 using AutoMapper;
 using Backgammon.GameCore.Game;
-using Backgammon.WebAPI.DTOs.Board;
+using Backgammon.WebAPI.Dtos.Board;
 
 namespace Backgammon.WebAPI.Mapping;
 

@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.DTOs.Lobby;
+namespace Backgammon.WebAPI.Dtos.Lobby;
 
 public class LobbyDto
 {

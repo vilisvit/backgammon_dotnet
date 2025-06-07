@@ -31,7 +31,7 @@ public class Board
 
     public Dice Dice { get; private set; } = new Dice();
 
-    public bool NoMovesWereAvailable { get; private set; } = false;
+    public bool NoMovesWereAvailable { get; set; } = false;
 
     public Board(Player player1, Player player2)
     {

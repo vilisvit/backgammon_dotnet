@@ -2,7 +2,7 @@ namespace Backgammon.GameCore.Game;
 
 public class Player
 {
-    public Player(Color color, string? name = null)
+    public Player(Color color, string name, Guid userId)
     {
         Color = color;
         Name = name ?? (color == Color.White ? "White Player" : "Black Player");
@@ -11,5 +11,5 @@ public class Player
     public Color Color { get; }
     public string Name { get; }
     
-    // public Guid UserId { get; set; } = Guid.Empty; // TODO: Uncomment after frontend update
+    public Guid UserId { get; set; } = Guid.Empty;
 }

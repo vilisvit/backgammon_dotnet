@@ -4,9 +4,9 @@ namespace Backgammon.GameCore.Lobby;
 
 public class GameSession
 {
-    public string SessionId { get; init; } = null!;
-    public List<Player> Players { get; init; } = [];
-    private Board? _board;
+    public string SessionId { get; }
+    public List<Player> Players { get; } = [];
+    public Board? Board { get; private set; }
 
     public GameSession(string sessionId, Player player1)
     {
@@ -40,7 +40,7 @@ public class GameSession
     {
         if (IsReadyToStart())
         {
-            _board = new Board(Players[0], Players[1]);
+            Board = new Board(Players[0], Players[1]);
         }
         else
         {
@@ -49,33 +49,27 @@ public class GameSession
         }
     }
     
-    public void RemovePlayer(string player)
+    public void RemovePlayer(Guid userId)
     {
-        if (!Players.Any(p => p.Name.Equals(player)))
+        if (!Players.Any(p => p.UserId.Equals(userId)))
         {
             throw new GameSessionException(
-                $"Player {player} is not in the session {SessionId}.");
+                $"User with ID {userId} is not in the session {SessionId}.");
         }
         
-        Players.RemoveAll(p => p.Name.Equals(player));
+        Players.RemoveAll(p => p.UserId.Equals(userId));
         
-        _board = null;
+        Board = null;
     }
     
-    public bool HasPlayer(string username)
+    public bool HasPlayer(Guid userId)
     {
-        return Players.Any(p => p.Name.Equals(username));
+        return Players.Any(p => p.UserId.Equals(userId));
     }
     
-    public bool IsEmpty() 
-    {
-        return Players.Count == 0;
-    }
+    public bool IsEmpty => Players.Count == 0;
     
-    public bool IsGameStarted()
-    {
-        return _board != null;
-    }
+    public bool IsGameStarted => Board != null;
     
     public List<string> GetPlayerNames() 
     {
@@ -84,18 +78,18 @@ public class GameSession
     
     public void CancelGame()
     {
-        if (_board == null)
+        if (Board == null)
         {
             throw new GameSessionException(
                 $"Cannot cancel game in session {SessionId}, game has not started.");
         }
         
-        _board.ForceFinishGame();
-        _board = null;
+        Board.ForceFinishGame();
+        Board = null;
     }
     
-    public void EndGame()
+    public void FinishGame()
     {
-        _board = null;
+        Board = null;
     }
 }

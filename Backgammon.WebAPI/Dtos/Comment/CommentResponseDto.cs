@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.DTOs.Comment;
+namespace Backgammon.WebAPI.Dtos.Comment;
 
 public class CommentResponseDto
 {

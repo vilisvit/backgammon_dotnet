@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.DTOs.Rating;
+namespace Backgammon.WebAPI.Dtos.Rating;
 
 public class RatingRequestDto
 {

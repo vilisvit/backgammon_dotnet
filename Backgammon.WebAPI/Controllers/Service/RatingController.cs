@@ -2,8 +2,7 @@ using System.Security.Claims;
 using AutoMapper;
 using Backgammon.Core.Entities;
 using Backgammon.Infrastructure.Repository;
-using Backgammon.WebAPI.DTOs;
-using Backgammon.WebAPI.DTOs.Rating;
+using Backgammon.WebAPI.Dtos.Rating;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backgammon.WebAPI.Controllers.Service;

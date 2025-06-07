@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.Websocket;
+namespace Backgammon.WebAPI.WebSocket;
 
 public class BackgammonWebSocketController
 {

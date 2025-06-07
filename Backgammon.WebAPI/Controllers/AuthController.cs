@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using Backgammon.Core.Entities;
-using Backgammon.WebAPI.DTOs.Auth;
+using Backgammon.WebAPI.Dtos.Auth;
 using Backgammon.WebAPI.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

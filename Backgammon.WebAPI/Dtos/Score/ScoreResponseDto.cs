@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.DTOs.Score;
+namespace Backgammon.WebAPI.Dtos.Score;
 
 public class ScoreResponseDto
 {

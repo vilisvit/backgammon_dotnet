@@ -1,8 +1,8 @@
-using Backgammon.WebAPI.DTOs.Board;
+using Backgammon.WebAPI.Dtos.Board;
 
-namespace Backgammon.WebAPI.DTOs.Game;
+namespace Backgammon.WebAPI.Dtos.Game;
 
-public class BoardMessageDto
+public class BoardMessage
 {
     public required string Status { get; init; }
     public required string Message { get; init; }

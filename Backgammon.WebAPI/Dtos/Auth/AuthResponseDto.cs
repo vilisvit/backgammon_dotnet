@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.DTOs.Auth;
+namespace Backgammon.WebAPI.Dtos.Auth;
 
 public class AuthResponseDto(string token)
 {

@@ -1,4 +1,4 @@
-namespace Backgammon.WebAPI.DTOs.Board;
+namespace Backgammon.WebAPI.Dtos.Board;
 
 public class DiceDto
 {
