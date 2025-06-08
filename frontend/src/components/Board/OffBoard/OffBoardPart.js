@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import PointHint from "../PointHint/PointHint";
-import { sendMessage } from "../../../api/ws/socket";
+import { sendOffBoardClick } from "../../../api/ws/socket";
 
 function OffBoardPart({ position, offBoardPartData: initialOffBoardPartData, sessionId, myTurn }) {
     const [offBoardPartData, setOffBoardPartData] = useState(initialOffBoardPartData);
@@ -11,9 +11,7 @@ function OffBoardPart({ position, offBoardPartData: initialOffBoardPartData, ses
     }, [initialOffBoardPartData]);
 
     const handleClick = () => {
-        sendMessage(`/app/game/${sessionId}/off-board/onclick`, {
-            position,
-        });
+        sendOffBoardClick(sessionId);
     };
 
     const colorClass = offBoardPartData.checkersColor === 'white' ? 'white-checker-side' : 'black-checker-side';

@@ -13,7 +13,7 @@ import {RatingDisplay} from "../components/Rating/RatingDisplay";
 import {fetchAverageRating, fetchUserRating} from "../api/http/rating.service";
 import Lobby from "../components/Lobby/Lobby";
 import Scoreboard from "../components/Scoreboard/Scoreboard";
-import {connectToGame} from "../api/ws/signalr";
+import {connectToGame} from "../api/ws/socket";
 
 function HomePage() {
     const [token, setToken] = useState(localStorage.getItem('token') || null);
@@ -38,7 +38,7 @@ function HomePage() {
                     setGameUpdates(boardUpdate);
                 },
                 (error) => {
-                    alert(error);
+                    alert(error.message);
                 },
                 () => {
                     alert("Game canceled.");

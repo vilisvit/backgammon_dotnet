@@ -6,10 +6,11 @@ public class Player
     {
         Color = color;
         Name = name ?? (color == Color.White ? "White Player" : "Black Player");
+        UserId = userId;
     }
 
     public Color Color { get; }
     public string Name { get; }
     
-    public Guid UserId { get; set; } = Guid.Empty;
+    public Guid UserId { get; }
 }

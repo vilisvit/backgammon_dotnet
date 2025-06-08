@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import PointHint from "../PointHint/PointHint";
-import { sendMessage } from "../../../api/ws/socket";
+import { sendPointClick } from "../../../api/ws/socket";
 
 function Point({ style, pointGroupPosition: initialPointGroupPosition, pointData: initialPointData, sessionId, myTurn }) {
     const [pointData, setPointData] = useState(initialPointData);
@@ -11,7 +11,7 @@ function Point({ style, pointGroupPosition: initialPointGroupPosition, pointData
     }, [initialPointData]);
 
     const handleClick = () => {
-        sendMessage(`/app/game/${sessionId}/point/${pointData.id}/onclick`, {});
+        sendPointClick(sessionId, pointData.id);
     };
 
     const colorClass = pointData.checkersColor === 'white' ? 'white-checker' : 'black-checker';

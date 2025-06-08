@@ -6,7 +6,7 @@ import Bar from './Bar/Bar';
 import OffBoard from "./OffBoard/OffBoard";
 import EndGameLabel from "./EndGameLabel/EndGameLabel";
 import PropTypes from "prop-types";
-import { sendMessage } from "../../api/ws/socket";
+import { sendRollDice } from "../../api/ws/socket";
 
 function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
     const [boardData, setBoardData] = useState(null);
@@ -22,9 +22,9 @@ function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
         return <div>Loading board...</div>;
     }
 
-    const handleClick = () => {
-        if (boardData.gameState === 'choosing_player' || boardData.gameState === 'roll') {
-            sendMessage(`/app/game/${gameSessionId}/roll`, {}); // Send an empty payload or include relevant data if needed
+    const handleRollDiceClick = () => {
+        if (boardData.gameState === 'choosingplayer' || boardData.gameState === 'roll') {
+            sendRollDice(gameSessionId);
         }
     };
 
@@ -64,7 +64,7 @@ function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
                 />
 
                 {/* Dice */}
-                {!(boardData.gameState === 'choosing_player' || boardData.gameState === 'roll') && (
+                {!(boardData.gameState === 'choosingplayer' || boardData.gameState === 'roll') && (
                     <div className="dice-container">
                         <Dice
                             diceValue={boardData.dice.firstDiceValue}
@@ -75,10 +75,10 @@ function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
                     </div>
                 )}
 
-                {(boardData.gameState === 'choosing_player' || (boardData.gameState === 'roll' && boardData.currentPlayerUsername === username)) && (
+                {(boardData.gameState === 'choosingplayer' || (boardData.gameState === 'roll' && boardData.currentPlayerUsername === username)) && (
                     <button
                         className="roll-dice-button"
-                        onClick={handleClick}
+                        onClick={handleRollDiceClick}
                     >
                         Roll the dice
                     </button>
@@ -104,7 +104,7 @@ function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
                 />
                 {!boardData.winnerUsername && (
                     <div className="turn-label">
-                        {boardData.gameState === 'choosing_player' ? (
+                        {boardData.gameState === 'choosingplayer' ? (
                             <>
                                 Roll dice to choose the first player.
                             </>

@@ -24,7 +24,7 @@ public class LobbyController(
     public IActionResult CreateLobby()
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult)
+        if (userResult is not OkResult)
             return userResult;
 
         var session = lobbyManager.CreateLobby(user!.Id);
@@ -36,7 +36,7 @@ public class LobbyController(
     public IActionResult JoinLobby(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult)
+        if (userResult is not OkResult)
             return userResult;
 
         try
@@ -55,7 +55,7 @@ public class LobbyController(
     public async Task<IActionResult> StartGame(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult)
+        if (userResult is not OkResult)
             return userResult;
 
         try
@@ -89,7 +89,7 @@ public class LobbyController(
     public async Task<IActionResult> LeaveLobby(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult)
+        if (userResult is not OkResult)
             return userResult;
 
         try
@@ -129,7 +129,7 @@ public class LobbyController(
     public IActionResult GetLobby(string sessionId)
     {
         var userResult = GetAuthenticatedUser(out var user);
-        if (userResult is not OkObjectResult)
+        if (userResult is not OkResult)
             return userResult;
 
         try

@@ -15,7 +15,10 @@ public class Board
 
     public GameState GameState { get; private set; }
 
-    private readonly Point[] _points = new Point[PointsCount];
+    private readonly Point[] _points = Enumerable.Range(0, PointsCount)
+        .Select(i => new Point())
+        .ToArray();
+
     public int SelectedPointNum { get; private set; } = NotSelected;
 
     private readonly List<int> _currentMoveDistances = [];

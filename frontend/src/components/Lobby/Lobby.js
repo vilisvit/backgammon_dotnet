@@ -1,41 +1,37 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {connectSocket, subscribe} from '../../api/ws/socket';
+import React, { useEffect, useRef, useState } from 'react';
+import { connectToGame } from '../../api/ws/socket';
 import gsAxios from "../../api/http/axiosConfig";
 import './Lobby.css';
 
-const Lobby = ({ token, onGameStart, onSessionIdUpdate, unsubscribeRef, initialSessionId }) => {
+const Lobby = ({ token, onGameStart, onSessionIdUpdate, initialSessionId }) => {
     const [sessionId, setSessionId] = useState(initialSessionId);
     const [inputSessionId, setInputSessionId] = useState('');
     const [players, setPlayers] = useState([]);
     const [isReadyToStart, setIsReadyToStart] = useState(false);
     const [copied, setCopied] = useState(false);
-
     const isConnectingRef = useRef(false);
-    const stompClientRef = useRef(null);
-    const localUnsubscribeRef = useRef(null);
+    const connectionRef = useRef(null);
 
     const subscribeToLobby = (sessionId) => {
-        if (localUnsubscribeRef.current) {
-            localUnsubscribeRef.current();
-            localUnsubscribeRef.current = null;
-        }
-
-        localUnsubscribeRef.current = subscribe(`/topic/lobby/${sessionId}`, (msg) => {
-            try {
-                if (msg.players) setPlayers(msg.players);
-                setIsReadyToStart(msg.readyToStart);
-                if (msg.started) {
-                    console.log('Game started:', msg);
-                    onGameStart();
-                }
-            } catch (e) {
-                console.error('Failed to parse lobby message:', msg);
+        connectToGame(token, sessionId, (msg) => {
+            console.log('Received BoardUpdated message:', msg);
+        }, (err) => {
+            console.error("SignalR error:", err);
+        }, () => {
+            console.log('Received GameCanceled message');
+            console.warn("Game was canceled.");
+        },
+            (lobbyDto) => {
+            console.log("Received LobbyUpdated message:", lobbyDto);
+            if (lobbyDto.players) setPlayers(lobbyDto.players);
+            setIsReadyToStart(lobbyDto.readyToStart);
+            if (lobbyDto.started) {
+                console.log('Game started:', lobbyDto);
+                onGameStart();
             }
+        }).then(conn => {
+            connectionRef.current = conn;
         });
-
-        if (unsubscribeRef.current) {
-            unsubscribeRef.current = localUnsubscribeRef.current;
-        }
     };
 
     useEffect(() => {
@@ -46,6 +42,8 @@ const Lobby = ({ token, onGameStart, onSessionIdUpdate, unsubscribeRef, initialS
                 const dto = res.data;
                 setPlayers(dto.players);
                 setIsReadyToStart(dto.readyToStart);
+                setSessionId(dto.sessionId);
+                onSessionIdUpdate(dto.sessionId);
                 subscribeToLobby(dto.sessionId);
             })
             .catch(() => {
@@ -53,102 +51,77 @@ const Lobby = ({ token, onGameStart, onSessionIdUpdate, unsubscribeRef, initialS
             });
     }, [initialSessionId]);
 
-
-    const handleCreateLobby = () => {
+    const handleCreateLobby = async () => {
         if (isConnectingRef.current) return;
         isConnectingRef.current = true;
 
-        connectSocket(token, (client) => {
-            stompClientRef.current = client;
+        try {
+            const res = await gsAxios.post('/lobby');
+            const dto = res.data;
 
-            gsAxios.post('/lobby', {})
-                .then((res) => {
-                    const dto = res.data;
-                    setSessionId(dto.sessionId);
-                    onSessionIdUpdate(dto.sessionId);
-                    subscribeToLobby(dto.sessionId);
+            setSessionId(dto.sessionId);
+            setPlayers(dto.players);
+            setIsReadyToStart(dto.readyToStart);
+            setInputSessionId('');
+            onSessionIdUpdate(dto.sessionId);
 
-                    setPlayers(dto.players);
-                    setIsReadyToStart(dto.readyToStart);
-                    setInputSessionId('');
-                    console.log(`Lobby created with session ID: ${dto.sessionId}`);
-                })
-                .catch((err) => {
-                    console.error('Error creating lobby:', err);
-                })
-                .finally(() => {
-                    isConnectingRef.current = false;
-                });
-
-        }, (error) => {
-            console.error('WebSocket connection error:', error);
+            subscribeToLobby(dto.sessionId);
+            console.log(`Lobby created with session ID: ${dto.sessionId}`);
+        } catch (err) {
+            console.error('Error creating lobby:', err);
+        } finally {
             isConnectingRef.current = false;
-        });
+        }
     };
 
-    const handleJoinLobby = () => {
+    const handleJoinLobby = async () => {
         if (!inputSessionId.trim() || isConnectingRef.current) return;
         isConnectingRef.current = true;
 
-        connectSocket(token, (client) => {
-            stompClientRef.current = client;
+        try {
+            const res = await gsAxios.post(`/lobby/join/${inputSessionId}`);
+            const dto = res.data;
 
-            gsAxios.post(`/lobby/join/${inputSessionId}`, {})
-                .then((res) => {
-                    const dto = res.data;
-                    subscribeToLobby(dto.sessionId);
-                    setSessionId(dto.sessionId);
-                    onSessionIdUpdate(dto.sessionId);
+            setSessionId(dto.sessionId);
+            setPlayers(dto.players);
+            setIsReadyToStart(dto.readyToStart);
+            setInputSessionId('');
+            onSessionIdUpdate(dto.sessionId);
 
-                    setPlayers(dto.players);
-                    setIsReadyToStart(dto.readyToStart);
-                    setInputSessionId('');
-                })
-                .catch(() => {
-                    alert("Lobby not found or join failed.");
-                })
-                .finally(() => {
-                    isConnectingRef.current = false;
-                });
-
-        }, (error) => {
-            console.error('WebSocket connection error:', error);
+            subscribeToLobby(dto.sessionId);
+        } catch {
+            alert("Lobby not found or join failed.");
+        } finally {
             isConnectingRef.current = false;
-        });
+        }
     };
 
-    const handleStartGame = () => {
-        gsAxios.post(`/lobby/start/${sessionId}`, {})
-            .then(() => {
-                onGameStart();
-                console.log('Game started');
-            })
-            .catch((err) => {
-                console.error('Error starting game:', err);
-            });
+    const handleStartGame = async () => {
+        try {
+            await gsAxios.post(`/lobby/start/${sessionId}`);
+            onGameStart();
+            console.log('Game started');
+        } catch (err) {
+            console.error('Error starting game:', err);
+        }
     };
 
-    const handleLeaveLobby = () => {
+    const handleLeaveLobby = async () => {
+        try {
+            await gsAxios.post(`/lobby/leave/${sessionId}`);
 
-        gsAxios.post(`/lobby/leave/${sessionId}`, {})
-            .then(() => {
-                if (localUnsubscribeRef.current) {
-                    localUnsubscribeRef.current();
-                    localUnsubscribeRef.current = null;
-                }
-
-                setSessionId('');
-                setPlayers([]);
-                setIsReadyToStart(false);
-                setInputSessionId('');
-                if (unsubscribeRef.current) {
-                    unsubscribeRef.current = null;
-                }
-            })
-            .catch((err) => {
-                console.error('Error leaving lobby:', err);
+            if (connectionRef.current) {
+                await connectionRef.current.stop();
+                connectionRef.current = null;
             }
-        );
+
+            setSessionId('');
+            setPlayers([]);
+            setIsReadyToStart(false);
+            setInputSessionId('');
+        } catch (err) {
+            console.error('Error leaving lobby:', err);
+        }
     };
 
     return (

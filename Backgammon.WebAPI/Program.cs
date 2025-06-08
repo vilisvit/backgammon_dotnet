@@ -1,5 +1,6 @@
 using System.Text;
 using Backgammon.Core.Entities;
+using Backgammon.GameCore.Lobby;
 using Backgammon.Infrastructure.Data;
 using Backgammon.Infrastructure.Repository;
 using Backgammon.WebAPI.Hubs;
@@ -13,8 +14,15 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Enable console logging
+// builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
+builder.Logging.AddFilter("Microsoft", LogLevel.Warning);
+builder.Logging.AddFilter("System", LogLevel.Warning);
+
+
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -35,7 +43,7 @@ builder.Services.AddIdentityCore<User>(options =>
         options.Password.RequiredLength = 1;
         options.Password.RequiredUniqueChars = 0;
     })
-    .AddRoles<IdentityRole<Guid>>() // optional
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<GameDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
@@ -59,8 +67,23 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(key),
             ClockSkew = TimeSpan.Zero
         };
-    });
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
 
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    path.StartsWithSegments("/hubs/backgammon"))
+                {
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            }
+        };
+    });
 
 builder.Services.AddAuthorization();
 
@@ -80,9 +103,20 @@ builder.Services.AddScoped<RatingRepository>();
 builder.Services.AddScoped<ScoreRepository>();
 
 builder.Services.AddScoped<JwtTokenService>();
+builder.Services.AddSingleton<LobbyManager>();
 
-builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -92,13 +126,9 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -110,3 +140,5 @@ app.MapControllers();
 app.MapGet("/", () => "Backgammon.WebAPI API is running");
 
 app.Run();
+
+// TODO: Fix connection closing after 30s without any player actions bug

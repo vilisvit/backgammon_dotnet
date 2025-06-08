@@ -40,6 +40,7 @@ public class GameSession
     {
         if (IsReadyToStart())
         {
+            Console.WriteLine($"Starting game in session {SessionId} with players: {string.Join(", ", GetPlayerNames())}");
             Board = new Board(Players[0], Players[1]);
         }
         else
@@ -51,6 +52,13 @@ public class GameSession
     
     public void RemovePlayer(Guid userId)
     {
+        // print all players for debugging
+        Console.WriteLine($"Removing player with ID {userId} from session {SessionId}. Current players:");
+        foreach (var player in Players)
+        {
+            Console.WriteLine($"- {player.Name} (ID: {player.UserId})");
+        }
+        
         if (!Players.Any(p => p.UserId.Equals(userId)))
         {
             throw new GameSessionException(

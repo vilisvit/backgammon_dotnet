@@ -1,4 +1,3 @@
-// src/Dice.js
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,7 +5,6 @@ function Dice({ style, diceValue: initialDiceValue }) {
     const [diceValue, setDiceValue] = useState(initialDiceValue);
 
     useEffect(() => {
-        // Update state whenever props change
         setDiceValue(initialDiceValue);
     }, [initialDiceValue]);
 

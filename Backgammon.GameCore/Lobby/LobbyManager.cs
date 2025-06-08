@@ -1,14 +1,18 @@
-using Backgammon.Core.Interfaces;
 using Backgammon.GameCore.Game;
+using Backgammon.Infrastructure.Repository;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Backgammon.GameCore.Lobby;
 
-public class LobbyManager(IUserRepository userRepository)
+public class LobbyManager(IServiceProvider serviceProvider)
 {
     private readonly Dictionary<string, GameSession> _lobbies = new();
 
     public GameSession CreateLobby(Guid userId)
     {
+        using var scope = serviceProvider.CreateScope();
+        var userRepository = scope.ServiceProvider.GetRequiredService<UserRepository>();
+
         if (!userRepository.ExistsById(userId)) 
         {
             throw new LobbyException($"User with ID {userId} does not exist.");
@@ -19,12 +23,25 @@ public class LobbyManager(IUserRepository userRepository)
         var sessionId = Guid.NewGuid().ToString();
         var player = new Player(ColorExtensions.GetRandom(), username!, userId);
         var session = new GameSession(sessionId, player);
-        _lobbies[sessionId] = session;
+        _lobbies.Add(sessionId, session);
+        Console.WriteLine($"Added new lobby with ID {sessionId} for player {username} (ID: {userId}).");
+        Console.WriteLine($"HashCode: {this.GetHashCode()}");
         return session;
     }
     
     public GameSession JoinLobby(string sessionId, Guid userId)
     {
+        using var scope = serviceProvider.CreateScope();
+        var userRepository = scope.ServiceProvider.GetRequiredService<UserRepository>();
+        
+        // print all lobbies for debugging
+        Console.WriteLine("Current Lobbies:");
+        Console.WriteLine($"HashCode: {this.GetHashCode()}");
+        
+        foreach (var lobby in _lobbies)
+        {
+            Console.WriteLine($"Lobby ID: {lobby.Key}, Players: {lobby.Value.Players.Count}");
+        }
         
         if (!_lobbies.TryGetValue(sessionId, out var session))
         {
@@ -71,6 +88,8 @@ public class LobbyManager(IUserRepository userRepository)
     
     public void RemoveLobby(string sessionId) 
     {
+        Console.WriteLine("Leaving lobby with session ID: " + sessionId);
+        Console.WriteLine($"HashCode: {this.GetHashCode()}");
         if (!_lobbies.Remove(sessionId))
         {
             throw new LobbyException($"Lobby with session ID {sessionId} does not exist.");

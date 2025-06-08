@@ -14,6 +14,7 @@ public class BoardToDtoConverter : ITypeConverter<Board, BoardDto>
         var player1 = source.Player1;
         var player2 = source.Player2;
         var dice = source.Dice;
+        var selectedPointNum = source.SelectedPointNum;
         
         var pointDtos = new PointDto[24];
         for (var i = 0; i < 24; i++)
@@ -24,9 +25,9 @@ public class BoardToDtoConverter : ITypeConverter<Board, BoardDto>
                 Id = i,
                 CheckersCount = point.CheckersCount,
                 CheckersColor = point.CheckersColor?.ToString().ToLower(),
-                IsSelected = source.SelectedPointNum == i,
-                IsPossibleMove = source.IsPossibleMove(point),
-                IsPossibleStartPoint = source.IsPossibleStartPoint(point)
+                Selected = selectedPointNum == i,
+                PossibleMove = source.IsPossibleMove(point),
+                PossibleStartPoint = source.IsPossibleStartPoint(point) && selectedPointNum == Board.NotSelected
             };
         }
 
@@ -42,8 +43,8 @@ public class BoardToDtoConverter : ITypeConverter<Board, BoardDto>
         {
             BlackCheckersCount = offBoard.CountCheckers(Color.Black),
             WhiteCheckersCount = offBoard.CountCheckers(Color.White),
-            IsPossibleMoveForBlackPlayer = source.IsPossibleMove(offBoard) && currentPlayer == player1,
-            IsPossibleMoveForWhitePlayer = source.IsPossibleMove(offBoard) && currentPlayer == player2
+            PossibleMoveForBlackPlayer = source.IsPossibleMove(offBoard) && currentPlayer == player1,
+            PossibleMoveForWhitePlayer = source.IsPossibleMove(offBoard) && currentPlayer == player2
         };
 
         var diceDto = new DiceDto
@@ -57,14 +58,14 @@ public class BoardToDtoConverter : ITypeConverter<Board, BoardDto>
         {
             Color = player1.Color.ToString().ToLower(),
             CurrentScore = source.GetScore(player1),
-            UserName = player1.Name
+            Username = player1.Name
         };
         
         var player2Dto = new PlayerDto
         {
             Color = player2.Color.ToString().ToLower(),
             CurrentScore = source.GetScore(player2),
-            UserName = player2.Name
+            Username = player2.Name
         };
 
         return new BoardDto
