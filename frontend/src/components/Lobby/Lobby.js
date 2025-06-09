@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import { connectToGame } from '../../api/ws/socket';
 import gsAxios from "../../api/http/axiosConfig";
 import './Lobby.css';
@@ -12,27 +12,27 @@ const Lobby = ({ token, onGameStart, onSessionIdUpdate, initialSessionId }) => {
     const isConnectingRef = useRef(false);
     const connectionRef = useRef(null);
 
-    const subscribeToLobby = (sessionId) => {
+    const subscribeToLobby = useCallback((sessionId) => {
         connectToGame(token, sessionId, (msg) => {
-            console.log('Received BoardUpdated message:', msg);
-        }, (err) => {
-            console.error("SignalR error:", err);
-        }, () => {
-            console.log('Received GameCanceled message');
-            console.warn("Game was canceled.");
-        },
+                console.log('Received BoardUpdated message:', msg);
+            }, (err) => {
+                console.error("SignalR error:", err);
+            }, () => {
+                console.log('Received GameCanceled message');
+                console.warn("Game was canceled.");
+            },
             (lobbyDto) => {
-            console.log("Received LobbyUpdated message:", lobbyDto);
-            if (lobbyDto.players) setPlayers(lobbyDto.players);
-            setIsReadyToStart(lobbyDto.readyToStart);
-            if (lobbyDto.started) {
-                console.log('Game started:', lobbyDto);
-                onGameStart();
-            }
-        }).then(conn => {
+                console.log("Received LobbyUpdated message:", lobbyDto);
+                if (lobbyDto.players) setPlayers(lobbyDto.players);
+                setIsReadyToStart(lobbyDto.readyToStart);
+                if (lobbyDto.started) {
+                    console.log('Game started:', lobbyDto);
+                    onGameStart();
+                }
+            }).then(conn => {
             connectionRef.current = conn;
         });
-    };
+    }, [token, onGameStart]);
 
     useEffect(() => {
         if (!initialSessionId) return;
@@ -49,7 +49,7 @@ const Lobby = ({ token, onGameStart, onSessionIdUpdate, initialSessionId }) => {
             .catch(() => {
                 console.warn("Failed to restore lobby.");
             });
-    }, [initialSessionId]);
+    }, [initialSessionId, onSessionIdUpdate, subscribeToLobby]);
 
     const handleCreateLobby = async () => {
         if (isConnectingRef.current) return;

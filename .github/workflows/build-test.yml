@@ -30,7 +30,7 @@ jobs:
       ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=backgammon_netcore_db;Username=postgres;Password=postgres"
 
     steps:
-      - name: 🛎Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup .NET
