@@ -15,6 +15,9 @@ export const connectToGame = async (token, sessionId, onBoardUpdate, onError, on
     connection.on("GameCanceled", onGameCancel);
     connection.on("LobbyUpdated", onLobbyUpdate);
 
+    connection.serverTimeoutInMilliseconds = 60000;
+    connection.keepAliveIntervalInMilliseconds = 15000;
+
     try {
         await connection.start();
         console.log("SignalR connected");

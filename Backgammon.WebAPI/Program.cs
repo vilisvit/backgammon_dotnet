@@ -140,5 +140,3 @@ app.MapControllers();
 app.MapGet("/", () => "Backgammon.WebAPI API is running");
 
 app.Run();
-
-// TODO: Fix connection closing after 30s without any player actions bug
