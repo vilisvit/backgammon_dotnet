@@ -45,17 +45,17 @@ jobs:
         run: dotnet build Backgammon.sln --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test Backgammon.Tests/Backgammon.Tests.csproj --no-build --verbosity normal
+        run: dotnet test Backgammon.Tests/Backgammon.Tests.csproj --verbosity detailed --configuration Release
 
-      - name: 🟦 Setup Node.js (for frontend)
+      - name: Setup Node.js (for frontend)
         uses: actions/setup-node@v4
         with:
           node-version: 24
 
-      - name: 📦 Install frontend dependencies
+      - name: Install frontend dependencies
         working-directory: ./frontend
         run: npm install
 
-      - name: 🧱 Build frontend
+      - name: Build frontend
         working-directory: ./frontend
         run: npm run build
