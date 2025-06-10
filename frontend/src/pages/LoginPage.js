@@ -51,7 +51,7 @@ function LoginPage() {
                 {error && <p className="error-message">{error}</p>}
             </div>
             <div className="link-container">
-                <p>Don't have an account? <Link to="/register">Register here</Link></p>
+                <p>Don&apos;t have an account? <Link to="/register">Register here</Link></p>
             </div>
         </div>
     );

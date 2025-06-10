@@ -27,6 +27,7 @@ function OffBoardPart({ position, offBoardPartData: initialOffBoardPartData, ses
 }
 
 OffBoardPart.propTypes = {
+    myTurn: PropTypes.bool.isRequired,
     position: PropTypes.oneOf(['top', 'bottom']).isRequired,
     offBoardPartData: PropTypes.shape({
         checkersCount: PropTypes.number.isRequired,

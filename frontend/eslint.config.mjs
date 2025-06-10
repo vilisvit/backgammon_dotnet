@@ -8,4 +8,10 @@ export default defineConfig([
   { files: ["**/*.{js,mjs,cjs,jsx}"], plugins: { js }, extends: ["js/recommended"] },
   { files: ["**/*.{js,mjs,cjs,jsx}"], languageOptions: { globals: globals.browser } },
   pluginReact.configs.flat.recommended,
+  {
+    files: ["**/*.cjs", "*/setupProxy.js"], // or any files using require
+    languageOptions: {
+      globals: globals.node
+    }
+  }
 ]);

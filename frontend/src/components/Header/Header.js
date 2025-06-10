@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import PropTypes from "prop-types";
 
 function Header({ username, onLogout }) {
     return (
@@ -18,5 +19,10 @@ function Header({ username, onLogout }) {
         </header>
     );
 }
+
+Header.propTypes = {
+    username: PropTypes.string,
+    onLogout: PropTypes.func,
+};
 
 export default Header;

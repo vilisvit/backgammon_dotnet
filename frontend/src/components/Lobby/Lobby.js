@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import { connectToGame } from '../../api/ws/socket';
 import gsAxios from "../../api/http/axiosConfig";
 import './Lobby.css';
+import PropTypes from "prop-types";
 
 const Lobby = ({ token, onGameStart, onSessionIdUpdate, initialSessionId }) => {
     const [sessionId, setSessionId] = useState(initialSessionId);
@@ -180,6 +181,13 @@ const Lobby = ({ token, onGameStart, onSessionIdUpdate, initialSessionId }) => {
             )}
         </div>
     );
+};
+
+Lobby.propTypes = {
+    token: PropTypes.string.isRequired,
+    onGameStart: PropTypes.func.isRequired,
+    onSessionIdUpdate: PropTypes.func.isRequired,
+    initialSessionId: PropTypes.string,
 };
 
 export default Lobby;

@@ -114,7 +114,7 @@ function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
                                     <strong>Your turn</strong>
                                 ) : (
                                     <>
-                                        <strong>{boardData.currentPlayerUsername}</strong>'s Turn
+                                        <strong>{boardData.currentPlayerUsername}</strong>&apos;s Turn
                                     </>
                                 )}
                             </>
@@ -146,6 +146,7 @@ function Board({ gameSessionId, gameUpdates, username, onGameFinish }) {
 }
 
 Board.propTypes = {
+    username: PropTypes.string.isRequired,
     gameSessionId: PropTypes.string.isRequired,
     gameUpdates: PropTypes.shape({
         status: PropTypes.string,

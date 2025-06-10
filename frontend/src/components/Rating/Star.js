@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const Star = ({ filled, onClick, onMouseEnter, onMouseLeave }) => (
     <span
@@ -10,3 +11,10 @@ export const Star = ({ filled, onClick, onMouseEnter, onMouseLeave }) => (
     ★
   </span>
 );
+
+Star.propTypes = {
+    filled: PropTypes.bool.isRequired,
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+}

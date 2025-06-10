@@ -13,6 +13,7 @@ function EndGameLabel({ winner, onClick }) {
 }
 
 EndGameLabel.propTypes = {
+    onClick: PropTypes.func.isRequired,
     winner: PropTypes.string.isRequired,
 };
 

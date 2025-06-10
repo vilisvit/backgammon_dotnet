@@ -6,12 +6,18 @@ import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
+import EndGameLabel from "./components/Board/EndGameLabel/EndGameLabel";
+import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem('token');
     console.log(`token in index.js: ${token}`); // Debug the token value
     return token ? children : <Navigate to="/login" />;
 };
+
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
+}
 
 const router = createBrowserRouter([
     {
@@ -32,6 +38,11 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
     }
 ]);
+
+EndGameLabel.PropTypes = {
+    onClick: PropTypes.func.isRequired,
+    winner: PropTypes.string.isRequired,
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

@@ -21,6 +21,7 @@ function Dice({ style, diceValue: initialDiceValue }) {
 }
 
 Dice.propTypes = {
+    diceValue: PropTypes.number,
     style: PropTypes.object,
 };
 
