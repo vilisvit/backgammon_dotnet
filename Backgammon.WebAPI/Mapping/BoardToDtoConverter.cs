@@ -15,7 +15,7 @@ public class BoardToDtoConverter : ITypeConverter<Board, BoardDto>
         var player2 = source.Player2;
         var dice = source.Dice;
         var selectedPointNum = source.SelectedPointNum;
-        
+
         var pointDtos = new PointDto[24];
         for (var i = 0; i < 24; i++)
         {
@@ -60,7 +60,7 @@ public class BoardToDtoConverter : ITypeConverter<Board, BoardDto>
             CurrentScore = source.GetScore(player1),
             Username = player1.Name
         };
-        
+
         var player2Dto = new PlayerDto
         {
             Color = player2.Color.ToString().ToLower(),

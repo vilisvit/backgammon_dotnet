@@ -19,7 +19,7 @@ public class AutoMapperProfile : Profile
         CreateMap<Score, ScoreResponseDto>()
             .ForMember(dest => dest.Player, opt => opt.MapFrom(src => src.User.UserName));
         // .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id)) TODO: Uncomment after frontend update
-        
+
         CreateMap<Board, BoardDto>().ConvertUsing<BoardToDtoConverter>();
     }
 }

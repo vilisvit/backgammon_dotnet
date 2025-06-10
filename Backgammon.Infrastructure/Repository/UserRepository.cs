@@ -16,12 +16,12 @@ public class UserRepository(GameDbContext db) : IUserRepository
         }
         return user;
     }
-    
+
     public bool ExistsByUserName(string userName)
     {
         return db.Users.Any(u => u.UserName == userName);
     }
-    
+
     public User FindById(Guid userId)
     {
         var user = db.Users.FirstOrDefault(u => u.Id == userId);
@@ -39,7 +39,7 @@ public class UserRepository(GameDbContext db) : IUserRepository
 
     public void AddUser(User user)
     {
-        try 
+        try
         {
             Validator.ValidateObject(user, new ValidationContext(user), validateAllProperties: true);
             db.Users.Add(user);

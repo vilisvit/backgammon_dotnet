@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import BarPart from "./BarPart";
+import React from "react";
 
 
 function Bar({ barData: initialBarData, mirrored }) {

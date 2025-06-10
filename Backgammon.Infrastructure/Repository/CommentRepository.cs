@@ -14,7 +14,7 @@ public class CommentRepository(GameDbContext db) : ICommentRepository
         try
         {
             Validator.ValidateObject(comment, new ValidationContext(comment), validateAllProperties: true);
-            
+
             db.Comments.Add(comment);
             db.SaveChanges();
         }

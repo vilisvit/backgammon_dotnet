@@ -21,21 +21,21 @@ public class GameSession
             throw new GameSessionException(
                 $"Player {player.Name} is already in the session {SessionId}.");
         }
-        
+
         if (Players.Count >= 2)
         {
             throw new GameSessionException(
                 $"Cannot add player {player.Name} to session {SessionId}, maximum players reached.");
         }
-        
+
         Players.Add(player);
     }
-    
+
     public bool IsReadyToStart()
     {
         return Players.Count == 2;
     }
-    
+
     public void StartGame()
     {
         if (IsReadyToStart())
@@ -49,7 +49,7 @@ public class GameSession
                 $"Cannot start game in session {SessionId}, not enough players.");
         }
     }
-    
+
     public void RemovePlayer(Guid userId)
     {
         // print all players for debugging
@@ -58,32 +58,32 @@ public class GameSession
         {
             Console.WriteLine($"- {player.Name} (ID: {player.UserId})");
         }
-        
+
         if (!Players.Any(p => p.UserId.Equals(userId)))
         {
             throw new GameSessionException(
                 $"User with ID {userId} is not in the session {SessionId}.");
         }
-        
+
         Players.RemoveAll(p => p.UserId.Equals(userId));
-        
+
         Board = null;
     }
-    
+
     public bool HasPlayer(Guid userId)
     {
         return Players.Any(p => p.UserId.Equals(userId));
     }
-    
+
     public bool IsEmpty => Players.Count == 0;
-    
+
     public bool IsGameStarted => Board != null;
-    
-    public List<string> GetPlayerNames() 
+
+    public List<string> GetPlayerNames()
     {
         return Players.Select(p => p.Name).ToList();
     }
-    
+
     public void CancelGame()
     {
         if (Board == null)
@@ -91,11 +91,11 @@ public class GameSession
             throw new GameSessionException(
                 $"Cannot cancel game in session {SessionId}, game has not started.");
         }
-        
+
         Board.ForceFinishGame();
         Board = null;
     }
-    
+
     public void FinishGame()
     {
         Board = null;

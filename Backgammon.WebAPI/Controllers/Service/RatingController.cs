@@ -17,12 +17,13 @@ public class RatingController(RatingRepository ratingRepository, UserRepository 
         try
         {
             return ratingRepository.GetAverageRating(game);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return BadRequest($"Problem retrieving average rating: {e.Message}");
         }
     }
-    
+
     [HttpGet("{game}/{player}")]
     public ActionResult<int> GetPlayerRating(string game, string player)
     {
@@ -30,14 +31,15 @@ public class RatingController(RatingRepository ratingRepository, UserRepository 
         {
             return NotFound("User with such username not found.");
         }
-        
+
         var user = userRepository.FindByUserName(player);
 
         try
         {
             var rating = ratingRepository.GetRating(game, user.Id);
             return Ok(rating);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return BadRequest($"Problem retrieving rating: {e.Message}");
         }
@@ -51,12 +53,12 @@ public class RatingController(RatingRepository ratingRepository, UserRepository 
         {
             return Unauthorized("Invalid or missing user ID in token.");
         }
-        
+
         if (userRepository.ExistsById(userId) == false)
         {
             return Unauthorized("User not found.");
         }
-        
+
         var entity = new Rating
         {
             Game = game,
@@ -68,7 +70,8 @@ public class RatingController(RatingRepository ratingRepository, UserRepository 
         try
         {
             ratingRepository.SetRating(entity);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return BadRequest($"Problem setting rating: {e.Message}");
         }

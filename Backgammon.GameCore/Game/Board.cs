@@ -62,30 +62,30 @@ public class Board
 
     private List<Move> GetPossibleMovesForBar(List<int> moveDistances)
     {
-        if (CurrentPlayer == null) 
+        if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         List<Move> moves = [];
         foreach (var moveDistance in moveDistances)
         {
             var position = (CurrentPlayer == Player1) ? moveDistance - 1 : 23 - moveDistance + 1;
             if (!CanPutCheckerOnPoint(CurrentPlayer.Color, _points[position])) continue;
-            
+
             moves.Add(new Move(Bar, _points[position], [moveDistance]));
-                
+
             var remainingMoveDistances = new List<int>(moveDistances);
             remainingMoveDistances.Remove(moveDistance);
-                
+
             moves.AddRange(GetPossibleMovesForPoint(CurrentPlayer.Color, position, remainingMoveDistances, [moveDistance]));
         }
         return moves;
     }
-    
+
     private bool PlayerCanBearOff(Player player)
     {
         return CountAllPlayersCheckers(player) == CountCheckersInInnerTable(player);
     }
-    
+
     private int CountAllPlayersCheckers(Player player)
     {
         var checkersCount = 0;
@@ -98,7 +98,7 @@ public class Board
         }
         return checkersCount;
     }
-    
+
     private int CountCheckersInInnerTable(Player player)
     {
         var checkersCount = 0;
@@ -119,12 +119,12 @@ public class Board
     {
         if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         if (moveDistances.Count == 0)
         {
             return [];
         }
-        
+
         List<Move> moves = [];
         var direction = (CurrentPlayer == Player1) ? 1 : -1;
 
@@ -138,53 +138,54 @@ public class Board
                 moves = moves.Union(GenerateMovesForPoint(pointNum, destinationPointNum, moveDistance, moveDistances, previousMoveDistances)).ToList();
             }
         }
-        
-        if (PlayerCanBearOff(CurrentPlayer)) 
+
+        if (PlayerCanBearOff(CurrentPlayer))
         {
             moves.AddRange(GenerateBearOffMoves(pointNum, moveDistances, previousMoveDistances));
         }
-        
+
         return moves;
     }
-    
-    private bool IsValidDestination(int destinationPointNum) {
+
+    private bool IsValidDestination(int destinationPointNum)
+    {
         return destinationPointNum is >= 0 and < PointsCount;
     }
-    
+
     private List<Move> GenerateMovesForPoint(int pointNum, int destinationPointNum, int moveDistance, List<int> moveDistances, List<int> previousMoveDistances)
     {
-        if (CurrentPlayer == null) 
+        if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         List<Move> moves = [];
         var destinationPoint = _points[destinationPointNum];
         moves.Add(new Move(_points[pointNum], destinationPoint, previousMoveDistances.Concat([moveDistance]).ToList()));
 
         var remainingMoveDistances = new List<int>(moveDistances);
         remainingMoveDistances.Remove(moveDistance);
-        
+
         moves.AddRange(GetPossibleMovesForPoint(CurrentPlayer.Color, destinationPointNum, remainingMoveDistances, previousMoveDistances.Concat([moveDistance]).ToList()));
-        
+
         return moves;
     }
-    
+
     private List<Move> GenerateBearOffMoves(int pointNum, List<int> moveDistances, List<int> previousMoveDistances)
     {
-        if (CurrentPlayer == null) 
+        if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         List<Move> moves = [];
         var edgePointNum = GetInnerTableEdgePointNum(CurrentPlayer);
         foreach (var moveDistance in moveDistances)
         {
-            if (IsValidBearOffMove(pointNum, moveDistance, edgePointNum)) 
+            if (IsValidBearOffMove(pointNum, moveDistance, edgePointNum))
             {
                 moves.Add(new Move(_points[pointNum], OffBoard, previousMoveDistances.Concat([moveDistance]).ToList()));
             }
         }
         return moves;
     }
-    
+
     private int GetInnerTableEdgePointNum(Player player)
     {
         var edgePointNum = 0;
@@ -200,7 +201,7 @@ public class Board
         }
         return edgePointNum;
     }
-    
+
     private bool IsValidBearOffMove(int pointNum, int moveDistance, int edgePointNum)
     {
         return (CurrentPlayer == Player2 && (moveDistance == pointNum + 1 ||
@@ -208,42 +209,43 @@ public class Board
                (CurrentPlayer == Player1 && (moveDistance == 23 - pointNum + 1 ||
                                              (pointNum == edgePointNum && pointNum + moveDistance > 23)));
     }
-    
+
     private void CalculatePossibleMoves()
     {
         if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         _possibleMoves.Clear();
         if (Bar.HasCheckers(CurrentPlayer.Color))
         {
             _possibleMoves.AddRange(GetPossibleMovesForBar(_currentMoveDistances));
-        } else if (SelectedPointNum != NotSelected)
+        }
+        else if (SelectedPointNum != NotSelected)
         {
             _possibleMoves.AddRange(GetPossibleMovesForPoint(CurrentPlayer.Color, SelectedPointNum, _currentMoveDistances, []));
         }
     }
-    
+
     public void RollDice()
     {
-        do 
+        do
         {
             Dice.Roll();
         } while (GameState == GameState.ChoosingPlayer && Dice.IsDouble);
-        
+
         AddDiceValuesToCurrentMoveDistances();
-        
+
         if (GameState == GameState.ChoosingPlayer)
         {
             SelectFirstPlayer(Dice.FirstDiceValue > Dice.SecondDiceValue ? Player1 : Player2);
         }
-        
+
         CalculatePossibleStartPoints();
         CalculatePossibleMoves();
         GameState = GameState.Move;
         NoMovesWereAvailable = false;
     }
-    
+
     private void AddDiceValuesToCurrentMoveDistances()
     {
         _currentMoveDistances.Add(Dice.FirstDiceValue);
@@ -254,7 +256,7 @@ public class Board
             _currentMoveDistances.Add(Dice.SecondDiceValue);
         }
     }
-    
+
     public void DeselectPoint()
     {
         SelectedPointNum = NotSelected;
@@ -262,17 +264,17 @@ public class Board
         GameState = GameState.Move;
         CalculatePossibleStartPoints();
     }
-    
+
     public bool SelectPoint(int pointNum)
     {
         if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         if (Bar.HasCheckers(CurrentPlayer.Color))
         {
             return false;
         }
-        
+
         var point = _points[pointNum];
         if (IsPossibleStartPoint(point))
         {
@@ -326,13 +328,13 @@ public class Board
         UpdateMoveDistances(move);
     }
 
-    
+
     /// Removes the checker from the selected point or bar and returns its color
     private Color GetCheckerForMove()
     {
         if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        if (Bar.HasCheckers(CurrentPlayer.Color)) 
+        if (Bar.HasCheckers(CurrentPlayer.Color))
         {
             Bar.RemoveChecker(CurrentPlayer.Color);
             return CurrentPlayer.Color;
@@ -351,18 +353,18 @@ public class Board
             _currentMoveDistances.Remove(moveUsedDistance);
         }
     }
-    
+
     public void ChangePlayer()
     {
         if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         CurrentPlayer = (CurrentPlayer == Player1) ? Player2 : Player1;
         GameState = GameState.Roll;
         _currentMoveDistances.Clear();
         _possibleStartPoints.Clear();
     }
-    
+
     private void SetupCheckers()
     {
         if (Debug)
@@ -386,24 +388,24 @@ public class Board
     }
 
     public bool IsGameOver => GameState == GameState.GameOver;
-    
+
     public Point GetPoint(int pointNum)
     {
         if (pointNum < 0 || pointNum >= PointsCount)
             throw new ArgumentOutOfRangeException(nameof(pointNum), "Point number must be between 0 and 23");
         return _points[pointNum];
     }
-    
+
     public bool IsPossibleMove(IPlaceForCheckers destination)
     {
         return _possibleMoves.Any(possibleMove => possibleMove.To == destination);
     }
-    
+
     private void CalculatePossibleStartPoints()
     {
         if (CurrentPlayer == null)
             throw new InvalidOperationException("Current player is not selected");
-        
+
         _possibleStartPoints.Clear();
         if (Bar.HasCheckers(CurrentPlayer.Color))
         {
@@ -424,7 +426,7 @@ public class Board
             }
         }
     }
-    
+
     public bool IsPossibleStartPoint(IPlaceForCheckers placeForCheckers)
     {
         return _possibleStartPoints.Contains(placeForCheckers);
@@ -433,13 +435,13 @@ public class Board
     public bool NoMovesAvailable => _possibleStartPoints.Count == 0;
 
     public IReadOnlyList<int> CurrentMoveDistances => _currentMoveDistances.AsReadOnly();
-    
+
     public void ForceFinishGame()
     {
         GameState = GameState.GameOver;
     }
- 
-    public Player? Winner => 
+
+    public Player? Winner =>
         OffBoard.HasAllCheckers(Player1.Color) ? Player1 :
         OffBoard.HasAllCheckers(Player2.Color) ? Player2 :
         null;

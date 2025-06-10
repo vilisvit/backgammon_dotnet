@@ -17,7 +17,7 @@ public class RatingRepositoryTest
 
         return new GameDbContext(options);
     }
-    
+
     [Test]
     public void SetRatingWhenItIsNew_ShouldAddRating()
     {
@@ -33,7 +33,7 @@ public class RatingRepositoryTest
         var rating = service.GetRating("backgammon", userId);
         Assert.That(rating, Is.EqualTo(5));
     }
-    
+
     [Test]
     public void SetRatingWhenItExists_ShouldUpdateRating()
     {
@@ -50,7 +50,7 @@ public class RatingRepositoryTest
         var rating = service.GetRating("backgammon", userId);
         Assert.That(rating, Is.EqualTo(3));
     }
-    
+
     [Test]
     public void AddingTooHighRating_ShouldThrowException()
     {
@@ -60,16 +60,16 @@ public class RatingRepositoryTest
 
         context.Users.Add(new User { Id = userId, UserName = "TestUser", PasswordHash = "hash" });
         context.SaveChanges();
-        
+
         var rating = service.GetRating("backgammon", userId);
-        
+
         // print the current rating for debugging
         Console.WriteLine($"Current rating for user {userId}: {rating}");
 
-        Assert.Throws<RatingException>(() => 
+        Assert.Throws<RatingException>(() =>
             service.SetRating(new Rating { Game = "backgammon", Value = 6, UserId = userId }));
     }
-    
+
     [Test]
     public void GetAverageRating_ShouldReturnCorrectAverage()
     {
@@ -100,7 +100,7 @@ public class RatingRepositoryTest
         var averageRating = service.GetAverageRating("backgammon");
         Assert.That(averageRating, Is.EqualTo(0));
     }
-    
+
     [Test]
     public void Reset_ShouldClearAllRatings()
     {

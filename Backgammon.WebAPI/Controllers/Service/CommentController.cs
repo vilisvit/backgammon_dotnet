@@ -20,7 +20,7 @@ public class CommentController(CommentRepository commentRepository, UserReposito
         {
             return Unauthorized("Invalid or missing user ID in token.");
         }
-        
+
         if (userRepository.ExistsById(userId) == false)
         {
             return Unauthorized("User not found.");
@@ -53,7 +53,8 @@ public class CommentController(CommentRepository commentRepository, UserReposito
         {
             var comments = commentRepository.GetComments(game);
             return Ok(comments.Select(mapper.Map<CommentResponseDto>));
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return BadRequest($"Problem retrieving comments: {e.Message}");
         }

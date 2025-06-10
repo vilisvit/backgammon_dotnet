@@ -83,11 +83,12 @@ public class CommentRepositoryTest
             UserId = user.Id
         };
 
-        Assert.Throws<CommentException>(() => {
+        Assert.Throws<CommentException>(() =>
+        {
             service.AddComment(comment);
         });
     }
-    
+
     [Test]
     public void RetrievedComments_ShouldBeOrderedByCommentedOn()
     {
@@ -122,12 +123,12 @@ public class CommentRepositoryTest
         service.AddComment(comment2);
 
         var comments = service.GetComments("Backgammon");
-        
+
         Assert.That(comments, Has.Count.EqualTo(2));
         Assert.That(comments[0].Content, Is.EqualTo("Second comment"));
         Assert.That(comments[1].Content, Is.EqualTo("First comment"));
     }
-    
+
     [Test]
     public void Reset_ShouldClearAllComments()
     {

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import OffBoardPart from "./OffBoardPart";
 import "./OffBoard.css";
+import React from "react";
 
 function OffBoard({ offBoardData: initialOffBoardData, sessionId, myTurn, playerBlackScore, playerWhiteScore, mirrored }) {
     const [offBoardData, setOffBoardData] = useState(initialOffBoardData);

@@ -4,7 +4,7 @@ public class OffBoard : IPlaceForCheckers
 {
     private int _countBlackCheckers;
     private int _countWhiteCheckers;
-    
+
     public void PutChecker(Color color)
     {
         switch (color)
@@ -19,7 +19,7 @@ public class OffBoard : IPlaceForCheckers
                 throw new ArgumentException("Invalid color");
         }
     }
-    
+
     public int CountCheckers(Color color)
     {
         return color switch
@@ -29,7 +29,7 @@ public class OffBoard : IPlaceForCheckers
             _ => throw new ArgumentException("Invalid color")
         };
     }
-    
+
     public bool HasAllCheckers(Color color)
     {
         return color switch

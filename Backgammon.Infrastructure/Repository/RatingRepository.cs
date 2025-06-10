@@ -13,7 +13,7 @@ public class RatingRepository(GameDbContext db) : IRatingRepository
         try
         {
             Validator.ValidateObject(rating, new ValidationContext(rating), validateAllProperties: true);
-            
+
             var existing = db.Ratings
                 .FirstOrDefault(r => r.Game == rating.Game && r.UserId == rating.UserId);
 

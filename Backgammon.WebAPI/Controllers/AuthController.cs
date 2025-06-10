@@ -16,7 +16,7 @@ public class AuthController(
     JwtTokenService tokenService
 ) : ControllerBase
 {
-    
+
     [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestDto requestDto)

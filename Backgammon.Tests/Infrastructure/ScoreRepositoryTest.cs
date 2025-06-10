@@ -13,7 +13,7 @@ namespace Backgammon.Tests.Infrastructure
                 .UseInMemoryDatabase(
                     Guid.NewGuid().ToString())
                 .Options;
-            
+
             return new GameDbContext(options);
         }
 

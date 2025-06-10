@@ -3,7 +3,7 @@ namespace Backgammon.GameCore.Game;
 public class Point : IPlaceForCheckers
 {
     public int CheckersCount { get; private set; }
-    public Color ?CheckersColor { get; private set; }
+    public Color? CheckersColor { get; private set; }
 
     public void PutChecker(Color color)
     {
@@ -17,7 +17,7 @@ public class Point : IPlaceForCheckers
         CheckersColor = color;
         CheckersCount += count;
     }
-    
+
     public bool HasCheckers => CheckersCount > 0;
 
     public void RemoveChecker()

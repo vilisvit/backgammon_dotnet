@@ -11,6 +11,6 @@ public class Player
 
     public Color Color { get; }
     public string Name { get; }
-    
+
     public Guid UserId { get; }
 }

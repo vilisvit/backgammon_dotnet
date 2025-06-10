@@ -200,7 +200,7 @@ public class BackgammonHub(
         {
             throw new InvalidOperationException("Cannot handle win: no winner defined.");
         }
-        
+
         var loser = board.Winner.Name == board.Player1.Name ? board.Player2 : board.Player1;
 
         scoreRepository.AddScore(new Score

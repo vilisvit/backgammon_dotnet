@@ -4,7 +4,7 @@ public class Bar : IPlaceForCheckers
 {
     private int _countBlackCheckers;
     private int _countWhiteCheckers;
-    
+
     public void PutChecker(Color color)
     {
         switch (color)
@@ -19,7 +19,7 @@ public class Bar : IPlaceForCheckers
                 throw new ArgumentException("Invalid color");
         }
     }
-    
+
     public void RemoveChecker(Color color)
     {
         switch (color)
@@ -42,7 +42,7 @@ public class Bar : IPlaceForCheckers
                 throw new ArgumentException("Invalid color");
         }
     }
-    
+
     public bool HasCheckers(Color color)
     {
         return color switch
@@ -52,7 +52,7 @@ public class Bar : IPlaceForCheckers
             _ => throw new ArgumentException("Invalid color")
         };
     }
-    
+
     public int CountCheckers(Color color)
     {
         return color switch
