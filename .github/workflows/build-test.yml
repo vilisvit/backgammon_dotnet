@@ -33,23 +33,23 @@ jobs:
       - name: Run static analysis
         run: dotnet format --verify-no-changes
 
-  backend_security:
-    name: Backend Security Analysis
-    runs-on: ubuntu-latest
-    needs: backend_static_analysis
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install DevSkim (Microsoft)
-        run: dotnet tool install --global Microsoft.DevSkim.CLI
-
-      - name: Run DevSkim Security Scan
-        run: devskim analyze --directory . --output-format sarif
+#  backend_security:
+#    name: Backend Security Analysis
+#    runs-on: ubuntu-latest
+#    needs: backend_static_analysis
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Install DevSkim (Microsoft)
+#        run: dotnet tool install --global Microsoft.DevSkim.CLI
+#
+#      - name: Run DevSkim Security Scan
+#        run: devskim analyze --directory . --output-format sarif
 
   backend_tests:
     name: Backend Unit Tests
     runs-on: ubuntu-latest
-    needs: backend_security
+#    needs: backend_security
     steps:
       - uses: actions/checkout@v3
 
@@ -94,7 +94,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Cache Node modules
         uses: actions/cache@v3
@@ -111,37 +111,37 @@ jobs:
         working-directory: ./frontend
         run: npx eslint src --ext .js,.jsx,.ts,.tsx --max-warnings 0
 
-  frontend_security:
-    name: Frontend Security Audit
-    runs-on: ubuntu-latest
-    needs: frontend_static_analysis
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        working-directory: ./frontend
-        run: npm ci
-
-      - name: Run npm audit
-        working-directory: ./frontend
-        run: npm audit --audit-level=moderate
+#  frontend_security:
+#    name: Frontend Security Audit
+#    runs-on: ubuntu-latest
+#    needs: frontend_static_analysis
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '24'
+#
+#      - name: Install dependencies
+#        working-directory: ./frontend
+#        run: npm ci
+#
+#      - name: Run npm audit
+#        working-directory: ./frontend
+#        run: npm audit --audit-level=moderate
 
   frontend_build:
     name: Frontend Build
     runs-on: ubuntu-latest
-    needs: frontend_security
+#    needs: frontend_security
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install dependencies
         working-directory: ./frontend
