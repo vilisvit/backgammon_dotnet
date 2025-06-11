@@ -28,11 +28,11 @@ jobs:
           restore-keys: dotnet-${{ runner.os }}-
 
       - name: Restore dependencies
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet restore Backgammon.sln
 
       - name: Run static analysis
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet format --verify-no-changes
 
 #  backend_security:
@@ -62,15 +62,15 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Restore dependencies
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet restore Backgammon.sln
 
       - name: Build solution
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet build Backgammon.sln --no-restore --configuration Release
 
       - name: Run tests
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet test Backgammon.Tests/Backgammon.Tests.csproj --verbosity normal
 
   backend_build:
@@ -89,11 +89,11 @@ jobs:
         run: dotnet restore Backgammon.sln
 
       - name: Build backend
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet build Backgammon.sln --configuration Release
         
       - name: dotnet publish
-        working-directory: ./backend
+        working-directory: backend
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
@@ -147,16 +147,16 @@ jobs:
       - name: Cache Node modules
         uses: actions/cache@v3
         with:
-          path: ./frontend/node_modules
+          path: frontend/node_modules
           key: node-${{ runner.os }}-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: node-${{ runner.os }}-
 
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm ci
 
       - name: Run linter
-        working-directory: ./frontend
+        working-directory: frontend
         run: npx eslint src --ext .js,.jsx,.ts,.tsx --max-warnings 0
 
 #  frontend_security:
@@ -172,11 +172,11 @@ jobs:
 #          node-version: '24'
 #
 #      - name: Install dependencies
-#        working-directory: ./frontend
+#        working-directory: frontend
 #        run: npm ci
 #
 #      - name: Run npm audit
-#        working-directory: ./frontend
+#        working-directory: frontend
 #        run: npm audit --audit-level=moderate
 
   frontend_build:
@@ -193,9 +193,9 @@ jobs:
           node-version: '24'
 
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm ci
 
       - name: Build frontend
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm run build
