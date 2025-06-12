@@ -126,7 +126,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 
@@ -139,5 +139,7 @@ app.MapControllers();
 
 app.MapGet("/", () => "Backgammon.WebAPI API is running");
 app.MapGet("/helloworld", () => "Hello world!").AllowAnonymous();;
+
+Console.WriteLine("Hello world from Backgammon.WebAPI!");
 
 app.Run();
