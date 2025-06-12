@@ -7,3 +7,5 @@ riderModule.iml
 .idea/
 
 Backgammon.WebAPI/appsettings.Development.json
+
+*.DotSettings.user
