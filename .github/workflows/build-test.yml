@@ -86,6 +86,7 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Restore dependencies
+        working-directory: backend
         run: dotnet restore Backgammon.sln
 
       - name: Build backend
