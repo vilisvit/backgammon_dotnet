@@ -138,5 +138,6 @@ app.MapHub<BackgammonHub>("/hubs/backgammon");
 app.MapControllers();
 
 app.MapGet("/", () => "Backgammon.WebAPI API is running");
+app.MapGet("/helloworld", () => "Hello world!");
 
 app.Run();
