@@ -76,7 +76,7 @@ jobs:
   backend_build:
     name: Backend Build
     runs-on: ubuntu-latest
-    # needs: backend_tests
+    needs: backend_tests
     steps:
       - uses: actions/checkout@v3
 
