@@ -88,7 +88,7 @@ builder.Services.AddAuthentication(options =>
 
                 var path = context.HttpContext.Request.Path;
                 if (!string.IsNullOrEmpty(accessToken) &&
-                    path.StartsWithSegments("/hubs/backgammon"))
+                    path.StartsWithSegments("/api/hubs/backgammon"))
                 {
                     context.Token = accessToken;
                 }
@@ -151,7 +151,7 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHub<BackgammonHub>("/hubs/backgammon");
+app.MapHub<BackgammonHub>("/api/hubs/backgammon");
 
 app.MapControllers();
 
