@@ -29,15 +29,15 @@ if (!string.IsNullOrEmpty(connectionString))
 else
 {
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-}
-
-if (!string.IsNullOrEmpty(connectionString))
-{
-    Console.WriteLine($"Using connection string from configuration");
-}
-else
-{
-    Console.WriteLine("WARNING: Connection string is null or empty!");
+    
+    if (!string.IsNullOrEmpty(connectionString))
+    {
+        Console.WriteLine($"Using connection string from configuration");
+    }
+    else
+    {
+        Console.WriteLine("WARNING: Connection string is null or empty!");
+    }
 }
 
 builder.Services.AddDbContext<GameDbContext>(options =>
@@ -150,9 +150,9 @@ app.MapHub<BackgammonHub>("/hubs/backgammon");
 
 app.MapControllers();
 
-app.MapGet("/", () => "Backgammon.WebAPI API is running");
+app.MapGet("/", () => "Backgammon.WebAPI API is running").AllowAnonymous();;
 app.MapGet("/helloworld", () => "Hello world!").AllowAnonymous();
 
-Console.WriteLine("Hello world from Backgammon.WebAPI!");
+Console.WriteLine("Backgammon.WebAPI is running!");
 
 app.Run();
