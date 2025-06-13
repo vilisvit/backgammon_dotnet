@@ -202,7 +202,7 @@ jobs:
 
       - name: Build frontend
         env:
-          REACT_APP_API_URL: ${{ secrets.BACKEND_API_URL }}
+          REACT_APP_API_URL: ${{ secrets.BACKEND_API_URL }} # /api postfix is required
         working-directory: frontend
         run: npm run build
 

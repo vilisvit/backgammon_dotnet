@@ -12,7 +12,7 @@ function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('/api/auth/login', { username, password })
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, { username, password })
             .then(response => {
                 if (response.data.accessToken) {
                     localStorage.setItem('token', response.data.accessToken	);
