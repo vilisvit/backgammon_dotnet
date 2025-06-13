@@ -14,18 +14,31 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Enable console logging
-// builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
 builder.Logging.AddFilter("Microsoft", LogLevel.Warning);
 builder.Logging.AddFilter("System", LogLevel.Warning);
 
 
-// Add services to the container.
-builder.Services.AddOpenApi();
+var connectionString = Environment.GetEnvironmentVariable("POSTGRESQLCONNSTR_DefaultConnection");
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (!string.IsNullOrEmpty(connectionString))
+{
+    Console.WriteLine("Using connection string from environment variable.");
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+
+if (!string.IsNullOrEmpty(connectionString))
+{
+    Console.WriteLine($"Using connection string from configuration");
+}
+else
+{
+    Console.WriteLine("WARNING: Connection string is null or empty!");
+}
 
 builder.Services.AddDbContext<GameDbContext>(options =>
     options.UseNpgsql(connectionString));
@@ -55,7 +68,7 @@ builder.Services.AddAuthentication(options =>
     })
     .AddJwtBearer(options =>
     {
-        var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!);
+        var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? "");
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -138,7 +151,7 @@ app.MapHub<BackgammonHub>("/hubs/backgammon");
 app.MapControllers();
 
 app.MapGet("/", () => "Backgammon.WebAPI API is running");
-app.MapGet("/helloworld", () => "Hello world!").AllowAnonymous();;
+app.MapGet("/helloworld", () => "Hello world!").AllowAnonymous();
 
 Console.WriteLine("Hello world from Backgammon.WebAPI!");
 
