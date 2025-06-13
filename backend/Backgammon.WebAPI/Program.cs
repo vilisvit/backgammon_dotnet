@@ -120,11 +120,13 @@ builder.Services.AddSingleton<LobbyManager>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
+var frontendUrl = builder.Configuration["FRONTEND_URL"];
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins(frontendUrl ?? "https://backgammon-frontend.vercel.app")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
