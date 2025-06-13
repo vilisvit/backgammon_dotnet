@@ -1,6 +1,30 @@
 {
   "routes": [
     {
+      "route": "/static/*",
+      "serve": "/static/"
+    },
+    {
+      "route": "/favicon.ico",
+      "serve": "/favicon.ico"
+    },
+    {
+      "route": "/logo192.png",
+      "serve": "/logo192.png"
+    },
+    {
+      "route": "/logo512.png",
+      "serve": "/logo512.png"
+    },
+    {
+      "route": "/manifest.json",
+      "serve": "/manifest.json"
+    },
+    {
+      "route": "/robots.txt",
+      "serve": "/robots.txt"
+    },
+    {
       "route": "/*",
       "rewrite": "/index.html"
     }
