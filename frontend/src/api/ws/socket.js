@@ -3,8 +3,10 @@ import * as signalR from '@microsoft/signalr';
 let connection;
 
 export const connectToGame = async (token, sessionId, onBoardUpdate, onError, onGameCancel, onLobbyUpdate) => {
+    const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
     connection = new signalR.HubConnectionBuilder()
-        .withUrl(`http://localhost:8080/hubs/backgammon?sessionId=${sessionId}`, {
+        .withUrl(`${backendUrl}/hubs/backgammon?sessionId=${sessionId}`, {
             accessTokenFactory: () => token
         })
         .withAutomaticReconnect()

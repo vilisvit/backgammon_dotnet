@@ -150,8 +150,7 @@ app.MapHub<BackgammonHub>("/hubs/backgammon");
 
 app.MapControllers();
 
-app.MapGet("/", () => "Backgammon.WebAPI API is running").AllowAnonymous();;
-app.MapGet("/helloworld", () => "Hello world!").AllowAnonymous();
+app.MapGet("/", () => "Backgammon.WebAPI API is running").AllowAnonymous();
 
 Console.WriteLine("Backgammon.WebAPI is running!");
 
