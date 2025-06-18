@@ -61,6 +61,33 @@ npm install
 npm start
 ```
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td align="center"><strong>🔐 Login Page</strong></td>
+    <td align="center"><strong>👥 Lobby and Scores</strong></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/1.png" width="350"/></td>
+    <td><img src="screenshots/2.png" width="350"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>💬 Ratings and Comments</strong></td>
+    <td align="center"><strong>🧩 Two Players in Lobby</strong></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/3.png" width="350"/></td>
+    <td><img src="screenshots/4.png" width="350"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><strong>🎯 Real-Time Gameplay</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="screenshots/5.png" width="500"/></td>
+  </tr>
+</table>
+
 ## 📄 License
 
 This project is licensed under the [MIT License](./LICENSE).
