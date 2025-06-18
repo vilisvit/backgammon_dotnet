@@ -2,19 +2,19 @@
   "routes": [
     {
       "route": "/static/*",
-      "rewrite": "/static/{path}"
+      "serve": "/static/"
     },
     {
       "route": "/assets/*",
-      "rewrite": "/assets/{path}"
+      "serve": "/assets/"
     },
     {
       "route": "/favicon.ico",
-      "rewrite": "/favicon.ico"
+      "serve": "/favicon.ico"
     },
     {
       "route": "/robots.txt",
-      "rewrite": "/robots.txt"
+      "serve": "/robots.txt"
     },
     {
       "route": "/*",
