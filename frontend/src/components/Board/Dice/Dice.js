@@ -10,7 +10,7 @@ function Dice({ style, diceValue: initialDiceValue }) {
 
     const diceStyle = {
         ...style,
-        backgroundImage: diceValue !== null ? `url('/backgammon/dice/${diceValue}.svg')` : 'none',
+        backgroundImage: diceValue !== null ? `url('/assets/images/dice/${diceValue}.svg')` : 'none',
     };
 
     return (
