@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 function Header({ username, onLogout }) {
     return (
         <header className="header">
-            <h1 className="header-title">GameStudio</h1>
+            <h1 className="header-title">Backgammon</h1>
             <div className="header-user-info">
                 {username && (
                     <div>
