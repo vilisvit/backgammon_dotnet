@@ -2,11 +2,11 @@
   "routes": [
     {
       "route": "/static/*",
-      "rewrite": "/static/"
+      "rewrite": "/static/{path}"
     },
     {
-      "route": "assets/*",
-      "rewrite": "/assets/"
+      "route": "/assets/*",
+      "rewrite": "/assets/{path}"
     },
     {
       "route": "/favicon.ico",
