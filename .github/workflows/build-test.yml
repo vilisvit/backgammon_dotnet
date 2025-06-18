@@ -106,6 +106,7 @@ jobs:
   backend_deploy:
     name: Backend Deploy
     runs-on: ubuntu-latest
+    environment: production
     needs: backend_build
     permissions:
       id-token: write
@@ -216,6 +217,7 @@ jobs:
   frontend_deploy:
     name: Frontend Deploy
     runs-on: ubuntu-latest
+    environment: production
     needs: frontend_build
     steps:
       - name: Download frontend build artifact
