@@ -260,6 +260,13 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Configure frontend startup command
+        run: |
+          az webapp config set \
+            --resource-group <YOUR_RESOURCE_GROUP> \
+            --name backgammon-frontend \
+            --startup-file "pm2 serve /home/site/wwwroot --no-daemon --spa"
+
       - name: List frontend files
         run: |
           echo "Frontend build files:"
