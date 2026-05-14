@@ -243,31 +243,31 @@ jobs:
     needs: frontend_build
 
     permissions:
-        id-token: write
-        contents: read
+      id-token: write
+      contents: read
 
     steps:
-        - name: Download frontend build artifact
-        uses: actions/download-artifact@v4
-        with:
-            name: frontend-build
-            path: ./frontend-build
+      - name: Download frontend build artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: frontend-build
+        path: ./frontend-build
 
-        - name: Azure Login (OIDC)
-        uses: azure/login@v2
-        with:
-            client-id: ${{ secrets.AZURE_CLIENT_ID }}
-            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Azure Login (OIDC)
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-        - name: List frontend files
-        run: |
-            echo "Frontend build files:"
-            ls -R ./frontend-build
+      - name: List frontend files
+      run: |
+        echo "Frontend build files:"
+        ls -R ./frontend-build
 
-        - name: Deploy frontend to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-            app-name: 'backgammon-frontend'
-            slot-name: 'Production'
-            package: ./frontend-build
+      - name: Deploy frontend to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'backgammon-frontend'
+        slot-name: 'Production'
+        package: ./frontend-build
